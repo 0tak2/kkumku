@@ -48,7 +48,8 @@ extension AddViewController: UITableViewDataSource {
         case .tag:
             return 1
         case .customField:
-            return 1
+            // return 1
+            return 0
         default:
             return 0
         }
@@ -60,8 +61,8 @@ extension AddViewController: UITableViewDataSource {
         switch section {
         case .tag:
             return "태그"
-        case .customField:
-            return "커스텀 필드"
+//        case .customField:
+//            return "커스텀 필드"
         default:
             return nil
         }
@@ -72,9 +73,9 @@ extension AddViewController: UITableViewDataSource {
         
         switch section {
         case .tag:
-            return "태그를 지정해두면 나중에 찾기 편해요"
-        case .customField:
-            return "설정에서 커스텀 필드 목록을 미리 정할 수 있어요"
+            return "태그는 본문에 \"#태그\" 형식으로 입력하면 추가할 수 있어요"
+//        case .customField:
+//            return "설정에서 커스텀 필드 목록을 미리 정할 수 있어요"
         default:
             return nil
         }
@@ -94,7 +95,7 @@ extension AddViewController: UITableViewDataSource {
             .memo: [.memoTextView],
             .select: [.dreamClassSegmentedControl, .isLucidSegmentedControl],
             .tag: [.labelOnly(newDream.tags.isEmpty ? "지정된 태그가 없습니다." : newDream.tags.joined(separator: ", "))],
-            .customField: [.labelOnly("테스트")],
+//            .customField: [.labelOnly("테스트")],
         ]
         
         guard let section = Section(rawValue: indexPath.section), let rows = controls[section] else {
