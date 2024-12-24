@@ -108,6 +108,7 @@ extension AddViewController: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "DateInputTableViewCell")
                 as? DateInputTableViewCell {
                 cell.configure("취침 시각", onChange: onChangeSleepStartTime)
+                cell.selectionStyle = .none
                 return cell
             }
             return UITableViewCell()
@@ -115,6 +116,7 @@ extension AddViewController: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "DateInputTableViewCell")
                 as? DateInputTableViewCell {
                 cell.configure("기상 시각", onChange: onChangeSleepEndTime)
+                cell.selectionStyle = .none
                 return cell
             }
             return UITableViewCell()
@@ -122,6 +124,7 @@ extension AddViewController: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewTableViewCell")
                 as? TextViewTableViewCell {
                 cell.configure("무슨 일이 있었나요?", onChange: onChangeMemo)
+                cell.selectionStyle = .none
                 return cell
             }
             return UITableViewCell()
@@ -129,6 +132,7 @@ extension AddViewController: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "SelectInputTableViewCell")
                 as? SelectInputTableViewCell {
                 cell.configure("분류", choices: dreamClassSegmentedList, onChange: onChangeClass)
+                cell.selectionStyle = .none
                 return cell
             }
             return UITableViewCell()
@@ -136,6 +140,7 @@ extension AddViewController: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "SelectInputTableViewCell")
                 as? SelectInputTableViewCell {
                 cell.configure("자각몽", choices: isLucidSegmentedList, onChange: onChangeClass)
+                cell.selectionStyle = .none
                 return cell
             }
             return UITableViewCell()
@@ -143,6 +148,7 @@ extension AddViewController: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "LabelOnlyTableViewCell")
                 as? LabelOnlyTableViewCell {
                 cell.configure(labelText)
+                cell.selectionStyle = .none
                 return cell
             }
             return UITableViewCell()
