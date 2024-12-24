@@ -93,7 +93,7 @@ extension AddViewController: UITableViewDataSource {
             .time: [.startTimeDetePicker, .endTimeDatePicker],
             .memo: [.memoTextView],
             .select: [.dreamClassSegmentedControl, .isLucidSegmentedControl],
-            .tag: [.labelOnly("테스트")],
+            .tag: [.labelOnly(newDream.tags.isEmpty ? "지정된 태그가 없습니다." : newDream.tags.joined(separator: ", "))],
             .customField: [.labelOnly("테스트")],
         ]
         
@@ -155,5 +155,11 @@ extension AddViewController: UITableViewDataSource {
         case .memo: return 480
         default: return 36
         }
+    }
+}
+
+extension AddViewController {
+    func updateTagSection() {
+        tableView.reloadSections(IndexSet(Section.tag.rawValue...Section.tag.rawValue), with: .automatic)
     }
 }

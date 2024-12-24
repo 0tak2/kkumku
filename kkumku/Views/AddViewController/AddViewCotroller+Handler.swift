@@ -24,6 +24,17 @@ extension AddViewController {
         isEditStarted = true
         newDream.memo = textView.text ?? ""
         print("onChangeMemo: \(newDream)")
+        
+        let pattern = #"\s+"# // whitespaces
+        let regex = try! Regex(pattern)
+        newDream.tags = textView.text.split(separator: regex, omittingEmptySubsequences: true)
+            .filter { $0.starts(with: "#") && $0 != "#" }
+            .map({ tag in
+                let nextHashIndex = tag.index(tag.startIndex, offsetBy: 1)
+                let hashOmitted = tag[nextHashIndex..<tag.endIndex]
+                return String(hashOmitted)
+            })
+        updateTagSection()
     }
     
     var dreamClassSegmentedList: [String] {

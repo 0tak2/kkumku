@@ -13,5 +13,6 @@ struct Dream {
     var memo: String
     var dreamClass: DreamClass
     var isLucid: Bool
+    var tags: [String] = []
     var custom: [String: String] = [:]
 }
