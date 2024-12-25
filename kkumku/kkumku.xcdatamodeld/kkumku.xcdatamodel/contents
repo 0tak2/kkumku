@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24C101" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="DreamAndTagEntity" representedClassName="DreamAndTagEntity" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="dream" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DreamEntity" inverseName="dreamAndTags" inverseEntity="DreamEntity"/>
+        <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DreamTagEntity" inverseName="tagAndDreams" inverseEntity="DreamTagEntity"/>
+    </entity>
+    <entity name="DreamEntity" representedClassName="DreamEntity" syncable="YES" codeGenerationType="category">
+        <attribute name="dreamClass" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="endAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isLucid" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="memo" optional="YES" attributeType="String"/>
+        <attribute name="startAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="dreamAndTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DreamAndTagEntity" inverseName="dream" inverseEntity="DreamAndTagEntity"/>
+    </entity>
+    <entity name="DreamTagEntity" representedClassName="DreamTagEntity" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="tag" optional="YES" attributeType="String"/>
+        <relationship name="tagAndDreams" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DreamAndTagEntity" inverseName="tag" inverseEntity="DreamAndTagEntity"/>
+    </entity>
 </model>
