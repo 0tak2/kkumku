@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3D2827B92D1BC13B009A851B /* DreamAndTagEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2827B32D1BC13B009A851B /* DreamAndTagEntity+CoreDataClass.swift */; };
+		3D2827BA2D1BC13B009A851B /* DreamTagEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2827B72D1BC13B009A851B /* DreamTagEntity+CoreDataClass.swift */; };
+		3D2827BD2D1BC13B009A851B /* DreamEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2827B52D1BC13B009A851B /* DreamEntity+CoreDataClass.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		3D2079A82D18DC5D00E3DD04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +33,9 @@
 		3D20798D2D18DC5C00E3DD04 /* kkumku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kkumku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2079A72D18DC5D00E3DD04 /* kkumkuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kkumkuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2079B12D18DC5D00E3DD04 /* kkumkuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kkumkuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D2827B32D1BC13B009A851B /* DreamAndTagEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DreamAndTagEntity+CoreDataClass.swift"; path = "kkumku/Persistence/Entities/DreamAndTagEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3D2827B52D1BC13B009A851B /* DreamEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DreamEntity+CoreDataClass.swift"; path = "kkumku/Persistence/Entities/DreamEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3D2827B72D1BC13B009A851B /* DreamTagEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DreamTagEntity+CoreDataClass.swift"; path = "kkumku/Persistence/Entities/DreamTagEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -88,6 +97,9 @@
 		3D2079842D18DC5C00E3DD04 = {
 			isa = PBXGroup;
 			children = (
+				3D2827B32D1BC13B009A851B /* DreamAndTagEntity+CoreDataClass.swift */,
+				3D2827B52D1BC13B009A851B /* DreamEntity+CoreDataClass.swift */,
+				3D2827B72D1BC13B009A851B /* DreamTagEntity+CoreDataClass.swift */,
 				3D20798F2D18DC5C00E3DD04 /* kkumku */,
 				3D2079AA2D18DC5D00E3DD04 /* kkumkuTests */,
 				3D2079B42D18DC5D00E3DD04 /* kkumkuUITests */,
@@ -249,6 +261,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D2827B92D1BC13B009A851B /* DreamAndTagEntity+CoreDataClass.swift in Sources */,
+				3D2827BA2D1BC13B009A851B /* DreamTagEntity+CoreDataClass.swift in Sources */,
+				3D2827BD2D1BC13B009A851B /* DreamEntity+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

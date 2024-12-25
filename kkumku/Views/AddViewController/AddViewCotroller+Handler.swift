@@ -61,5 +61,10 @@ extension AddViewController {
     
     @objc func onTappedSave() {
         print("onTappedSave: \(newDream)")
+        
+        if isEditStarted {
+            dreamRepository.insert(newDream)
+            isEditStarted.toggle()
+        }
     }
 }

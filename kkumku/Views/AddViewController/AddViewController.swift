@@ -16,6 +16,7 @@ class AddViewController: UIViewController {
             navigationItem.rightBarButtonItem?.tintColor = isEditStarted ? nil : .gray
         }
     }
+    let dreamRepository = DreamRepository()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,5 +29,11 @@ class AddViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         tableView.dataSource = self
         tableView.delegate = self
+        
+        dreamRepository.fetchAll().forEach { dream in
+            print("=================")
+            print(dream)
+            print("")
+        }
     }
 }

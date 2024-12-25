@@ -8,6 +8,7 @@
 import Foundation
 
 struct Dream {
+    var id = UUID()
     var startAt: Date
     var endAt: Date
     var memo: String
