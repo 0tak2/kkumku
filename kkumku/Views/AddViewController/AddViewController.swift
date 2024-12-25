@@ -26,6 +26,9 @@ class AddViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(onTappedSave))
         navigationItem.rightBarButtonItem?.tintColor = .gray
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+        view.addGestureRecognizer(tapGestureRecognizer)
+        
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         tableView.dataSource = self
         tableView.delegate = self
@@ -35,5 +38,9 @@ class AddViewController: UIViewController {
             print(dream)
             print("")
         }
+    }
+    
+    @objc func viewTapped() {
+        view.endEditing(true)
     }
 }
