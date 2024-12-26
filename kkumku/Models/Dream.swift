@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Dream {
+struct Dream: Hashable {
     var id = UUID()
     var startAt: Date
     var endAt: Date
