@@ -40,10 +40,22 @@ class ExploreViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         // 데이터가 추가되었을 수 있으므로 강제로 업데이트 해준다
-        page = 1
-        pageEnded = false
-        loadCurrentData()
-        collectionView.contentOffset.y = 0
+        reloadData()
     }
     
+    @objc func sortRecentButtonTapped() {
+        isAscending = false
+        sortRecentButton.isSelected = true
+        sortOldestButton.isSelected = false
+        
+        reloadData()
+    }
+    
+    @objc func sortOldestButtonTapped() {
+        isAscending = true
+        sortRecentButton.isSelected = false
+        sortOldestButton.isSelected = true
+        
+        reloadData()
+    }
 }

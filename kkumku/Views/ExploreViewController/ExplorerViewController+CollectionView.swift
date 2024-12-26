@@ -45,18 +45,24 @@ extension ExploreViewController {
     }
     
     func loadCurrentData() {
-        let loaded = dreamRepository.fetchAll(sortBy: \DreamEntity.endAt, ascending: false, numberOfItems: numberOfItems, page: page)
+        let loaded = dreamRepository.fetchAll(sortBy: \DreamEntity.endAt, ascending: isAscending, numberOfItems: numberOfItems, page: page)
         applyDataSource(loaded)
+    }
+    
+    func reloadData() {
+        page = 1
+        pageEnded = false
+        loadCurrentData()
+        collectionView.contentOffset.y = 0
     }
     
     func appendMoreData() {
         guard !pageEnded else { return }
         
         page += 1
-        let moreData = dreamRepository.fetchAll(sortBy: \DreamEntity.endAt, ascending: false, numberOfItems: numberOfItems, page: page)
+        let moreData = dreamRepository.fetchAll(sortBy: \DreamEntity.endAt, ascending: isAscending, numberOfItems: numberOfItems, page: page)
         if moreData.count < numberOfItems {
             pageEnded.toggle()
-            return
         }
         
         var snaphost = dataSource.snapshot()
@@ -67,7 +73,9 @@ extension ExploreViewController {
 
 extension ExploreViewController: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        print("ExploreViewController")
         if (scrollView.contentOffset.y + 1) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+            print("load more")
             appendMoreData()
         }
     }
