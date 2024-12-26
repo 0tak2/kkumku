@@ -139,7 +139,7 @@ extension AddViewController: UITableViewDataSource {
         case .isLucidSegmentedControl:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "SelectInputTableViewCell")
                 as? SelectInputTableViewCell {
-                cell.configure("자각몽", choices: isLucidSegmentedList, onChange: onChangeClass)
+                cell.configure("자각몽", choices: isLucidSegmentedList, onChange: onChangeLucidOrNot)
                 cell.selectionStyle = .none
                 return cell
             }
