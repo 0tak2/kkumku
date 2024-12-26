@@ -36,6 +36,7 @@ final class DreamRepository {
             dreamEntity.endAt = dream.endAt
             dreamEntity.memo = dream.memo
             dreamEntity.isLucid = dream.isLucid
+            dreamEntity.dreamClass = Int16(dream.dreamClass.rawValue)
             dreamEntity.dreamAndTags = []
             
             for tag in dream.tags {
