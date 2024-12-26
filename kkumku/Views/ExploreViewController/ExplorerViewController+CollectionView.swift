@@ -22,8 +22,6 @@ extension ExploreViewController {
             
             return cell
         })
-        
-        applyDataSource(dreamRepository.fetchAll())
     }
     
     func setLayout() -> UICollectionViewCompositionalLayout {
@@ -44,5 +42,33 @@ extension ExploreViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems(dreams, toSection: .main)
         dataSource.apply(snapshot)
+    }
+    
+    func loadCurrentData() {
+        let loaded = dreamRepository.fetchAll(sortBy: \DreamEntity.endAt, ascending: false, numberOfItems: numberOfItems, page: page)
+        applyDataSource(loaded)
+    }
+    
+    func appendMoreData() {
+        guard !pageEnded else { return }
+        
+        page += 1
+        let moreData = dreamRepository.fetchAll(sortBy: \DreamEntity.endAt, ascending: false, numberOfItems: numberOfItems, page: page)
+        if moreData.count < numberOfItems {
+            pageEnded.toggle()
+            return
+        }
+        
+        var snaphost = dataSource.snapshot()
+        snaphost.appendItems(moreData, toSection: .main)
+        dataSource.apply(snaphost)
+    }
+}
+
+extension ExploreViewController: UICollectionViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if (scrollView.contentOffset.y + 1) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+            appendMoreData()
+        }
     }
 }

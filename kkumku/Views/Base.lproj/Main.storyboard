@@ -188,13 +188,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="lc4-1n-K3Z">
-                                <rect key="frame" x="0.0" y="103" width="94" height="24"/>
+                                <rect key="frame" x="0.0" y="103" width="135.33333333333334" height="24"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXM-1d-R8Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="45" height="24"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="65.666666666666671" height="24"/>
                                         <color key="tintColor" name="primaryColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="최근" cornerStyle="capsule">
+                                        <buttonConfiguration key="configuration" style="plain" title="최근부터" cornerStyle="capsule">
                                             <backgroundConfiguration key="background">
                                                 <color key="strokeColor" name="calmColor"/>
                                             </backgroundConfiguration>
@@ -203,10 +203,10 @@
                                         </buttonConfiguration>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WdT-dS-CmR">
-                                        <rect key="frame" x="49" y="0.0" width="45" height="24"/>
+                                        <rect key="frame" x="69.666666666666657" y="0.0" width="65.666666666666657" height="24"/>
                                         <color key="tintColor" name="primaryColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="예전" cornerStyle="capsule">
+                                        <buttonConfiguration key="configuration" style="plain" title="예전부터" cornerStyle="capsule">
                                             <backgroundConfiguration key="background">
                                                 <color key="strokeColor" name="calmColor"/>
                                             </backgroundConfiguration>
@@ -256,9 +256,9 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="190" id="zk6-aT-PXL"/>
                                                             </constraints>
-                                                            <mutableString key="text">턱뼈에서 동원한다 빠지지 지난 간판으로 사람에 결과적을 대체로 서한은, 평가되다. 1일 합의부에서, 별개가 기소될 권한이 이상이 가다. 만약에서 총선이 공공을 행위가 모르다. 미흡할 정부는 날 말하다 시원하라. 이라 시장은 집이어 갑자기 정부도 최소한은 팩시밀리에 주다. 하여 외교가 농민시장이, 댄 효과적이 부위를 수배를 있으며 시골의, 된 주다.  
+                                                            <string key="text">턱뼈에서 동원한다 빠지지 지난 간판으로 사람에 결과적을 대체로 서한은, 평가되다. 1일 합의부에서, 별개가 기소될 권한이 이상이 가다. 만약에서 총선이 공공을 행위가 모르다. 미흡할 정부는 날 말하다 시원하라. 이라 시장은 집이어 갑자기 정부도 최소한은 팩시밀리에 주다. 하여 외교가 농민시장이, 댄 효과적이 부위를 수배를 있으며 시골의, 된 주다.  
  
-당뇨에 마음대로, 병원이는 메가와트 것, 기관을 받는다. 필요성을 지역을 수, 수험생은 내년이 있다 불리다. "하다 그도 671미터 양도분은, 쏘는 직원에서 비인플레적 조건이지만 정부도 기하다" 신생에 것 지불할 줄이는데 학과를 연휴와 내각으로 매매는 활발하다. 계기를 바라는, 있은 수 제시하다. 상승세에서 무척 충분히 시절을 질서는 장을 없다가 가시적에 일으로 필요하다. 지우는 확장의 배치된 대한 이 앞당기다 관련의 있다. 광고는 대한다 전문으로 않아, 일석이조를 나열하다 전임은 있은 크라.</mutableString>
+당뇨에 마음대로, 병원이는 메가와트 것, 기관을 받는다. 필요성을 지역을 수, 수험생은 내년이 있다 불리다. "하다 그도 671미터 양도분은, 쏘는 직원에서 비인플레적 조건이지만 정부도 기하다" 신생에 것 지불할 줄이는데 학과를 연휴와 내각으로 매매는 활발하다. 계기를 바라는, 있은 수 제시하다. 상승세에서 무척 충분히 시절을 질서는 장을 없다가 가시적에 일으로 필요하다. 지우는 확장의 배치된 대한 이 앞당기다 관련의 있다. 광고는 대한다 전문으로 않아, 일석이조를 나열하다 전임은 있은 크라.</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
