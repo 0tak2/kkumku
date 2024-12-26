@@ -64,7 +64,16 @@ extension AddViewController {
         
         if isEditStarted {
             dreamRepository.insert(newDream)
+            let savedDream = newDream
+            newDream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
+            tableView.reloadData()
             isEditStarted.toggle()
+            
+            let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
+            guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
+                    as? DetailDreamViewController else { return }
+            detailViewController.dream = savedDream
+            navigationController?.pushViewController(detailViewController, animated: true)
         }
     }
 }

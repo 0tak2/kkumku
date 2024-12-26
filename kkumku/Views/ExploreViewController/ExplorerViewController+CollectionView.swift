@@ -79,4 +79,15 @@ extension ExploreViewController: UICollectionViewDelegate {
             appendMoreData()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.item
+        let loadedDreams = self.dataSource.snapshot().itemIdentifiers(inSection: .main)
+        
+        let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
+        guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
+                as? DetailDreamViewController else { return }
+        detailViewController.dream = loadedDreams[index]
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
 }

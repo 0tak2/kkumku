@@ -26,17 +26,8 @@ class DreamCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(dream: Dream) {
-        switch dream.dreamClass {
-        case .auspicious:
-            dreamClassEmoji.text = "😀"
-        case .ominous:
-            dreamClassEmoji.text = "😱"
-        case .ambiguous:
-            dreamClassEmoji.text = "😶"
-        }
-        
-        dreamDateLabel.text = dateToString(dream.endAt)
-        
+        dreamClassEmoji.text = dream.dreamClass.descriptionEmoji()
+        dreamDateLabel.text = dream.endAt.localizedString
         dreamContentLabel.text = dream.memo
         
         if dream.isLucid {
@@ -52,21 +43,6 @@ class DreamCollectionViewCell: UICollectionViewCell {
             label.font = .systemFont(ofSize: 12, weight: .light)
             tagStackView.addArrangedSubview(label)
         }
-    }
-    
-    func dateToString(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        
-        let calendar = NSCalendar.current.dateComponents([.year], from: date)
-        let calendarNow = NSCalendar.current.dateComponents([.year], from: Date.now)
-        if calendar.year != calendarNow.year {
-            dateFormatter.dateFormat = "yyyy년 MM월 dd일 a hh시 mm분"
-        } else {
-            dateFormatter.dateFormat = "MM월 dd일 a hh시 mm분"
-        }
-        
-        return dateFormatter.string(from: date)
     }
     
     func initTagStackView() {
