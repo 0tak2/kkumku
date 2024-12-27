@@ -34,10 +34,10 @@
             </objects>
             <point key="canvasLocation" x="138.1679389312977" y="-2.1126760563380285"/>
         </scene>
-        <!--Add View Controller-->
+        <!--Edit View Controller-->
         <scene sceneID="sxJ-er-iiD">
             <objects>
-                <viewController storyboardIdentifier="AddViewController" id="O5v-pL-q0f" customClass="AddViewController" customModule="kkumku" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditViewController" id="O5v-pL-q0f" customClass="EditViewController" customModule="kkumku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xSF-xr-mpB">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

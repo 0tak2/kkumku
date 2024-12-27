@@ -7,10 +7,10 @@
 
 import UIKit
 
-class AddViewController: UIViewController {
+class EditViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var newDream: Dream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
+    var workingDream: Dream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
     var isEditStarted: Bool = false {
         didSet {
             navigationItem.rightBarButtonItem?.tintColor = isEditStarted ? nil : .gray

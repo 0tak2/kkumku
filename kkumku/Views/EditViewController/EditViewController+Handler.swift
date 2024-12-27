@@ -7,27 +7,27 @@
 
 import UIKit
 
-extension AddViewController {
+extension EditViewController {
     func onChangeSleepStartTime(datepicker: UIDatePicker) {
         isEditStarted = true
-        newDream.startAt = datepicker.date
-        print("onChangeSleepStartTime: \(newDream)")
+        workingDream.startAt = datepicker.date
+        print("onChangeSleepStartTime: \(workingDream)")
     }
     
     func onChangeSleepEndTime(datepicker: UIDatePicker) {
         isEditStarted = true
-        newDream.endAt = datepicker.date
-        print("onChangeSleepEndTime: \(newDream)")
+        workingDream.endAt = datepicker.date
+        print("onChangeSleepEndTime: \(workingDream)")
     }
     
     func onChangeMemo(textView: UITextView) {
         isEditStarted = true
-        newDream.memo = textView.text ?? ""
-        print("onChangeMemo: \(newDream)")
+        workingDream.memo = textView.text ?? ""
+        print("onChangeMemo: \(workingDream)")
         
         let pattern = #"\s+"# // whitespaces
         let regex = try! Regex(pattern)
-        newDream.tags = textView.text.split(separator: regex, omittingEmptySubsequences: true)
+        workingDream.tags = textView.text.split(separator: regex, omittingEmptySubsequences: true)
             .filter { $0.starts(with: "#") && $0 != "#" }
             .map({ tag in
                 let nextHashIndex = tag.index(tag.startIndex, offsetBy: 1)
@@ -44,8 +44,8 @@ extension AddViewController {
     func onChangeClass(segment: UISegmentedControl) {
         isEditStarted = true
         let selectedIndex = segment.selectedSegmentIndex
-        newDream.dreamClass = .init(rawValue: selectedIndex) ?? .auspicious
-        print("onChangeClass: \(newDream)")
+        workingDream.dreamClass = .init(rawValue: selectedIndex) ?? .auspicious
+        print("onChangeClass: \(workingDream)")
     }
     
     var isLucidSegmentedList: [String] {
@@ -55,17 +55,17 @@ extension AddViewController {
     func onChangeLucidOrNot(segment: UISegmentedControl) {
         isEditStarted = true
         let selectedIndex = segment.selectedSegmentIndex
-        newDream.isLucid = selectedIndex == 1
-        print("onChangeLucidOrNot: \(newDream)")
+        workingDream.isLucid = selectedIndex == 1
+        print("onChangeLucidOrNot: \(workingDream)")
     }
     
     @objc func onTappedSave() {
-        print("onTappedSave: \(newDream)")
+        print("onTappedSave: \(workingDream)")
         
         if isEditStarted {
-            dreamRepository.insert(newDream)
-            let savedDream = newDream
-            newDream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
+            dreamRepository.insert(workingDream)
+            let savedDream = workingDream
+            workingDream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
             tableView.reloadData()
             isEditStarted.toggle()
             

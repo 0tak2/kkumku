@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension AddViewController {
+extension EditViewController {
     enum Section: Int, Hashable {
         case time
         case memo
@@ -26,11 +26,11 @@ extension AddViewController {
     }
 }
 
-extension AddViewController: UITableViewDelegate {
+extension EditViewController: UITableViewDelegate {
     
 }
 
-extension AddViewController: UITableViewDataSource {
+extension EditViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 5
     }
@@ -94,7 +94,7 @@ extension AddViewController: UITableViewDataSource {
             .time: [.startTimeDetePicker, .endTimeDatePicker],
             .memo: [.memoTextView],
             .select: [.dreamClassSegmentedControl, .isLucidSegmentedControl],
-            .tag: [.labelOnly(newDream.tags.isEmpty ? "지정된 태그가 없습니다." : newDream.tags.joined(separator: ", "))],
+            .tag: [.labelOnly(workingDream.tags.isEmpty ? "지정된 태그가 없습니다." : workingDream.tags.joined(separator: ", "))],
 //            .customField: [.labelOnly("테스트")],
         ]
         
@@ -165,7 +165,7 @@ extension AddViewController: UITableViewDataSource {
     }
 }
 
-extension AddViewController {
+extension EditViewController {
     func updateTagSection() {
         tableView.reloadSections(IndexSet(Section.tag.rawValue...Section.tag.rawValue), with: .automatic)
     }
