@@ -10,7 +10,9 @@ import UIKit
 class EditViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    var isInsertingNewDream = false
     var workingDream: Dream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
+    
     var isEditStarted: Bool = false {
         didSet {
             navigationItem.rightBarButtonItem?.tintColor = isEditStarted ? nil : .gray
@@ -21,7 +23,12 @@ class EditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "새 꿈"
+        if isInsertingNewDream {
+            navigationItem.title = "새 꿈"
+        } else {
+            navigationItem.title = "수정하기"
+        }
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(onTappedSave))
         navigationItem.rightBarButtonItem?.tintColor = .gray

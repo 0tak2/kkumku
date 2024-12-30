@@ -63,7 +63,7 @@ extension EditViewController {
         print("onTappedSave: \(workingDream)")
         
         if isEditStarted {
-            dreamRepository.insert(workingDream)
+            dreamRepository.save(workingDream)
             let savedDream = workingDream
             workingDream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
             tableView.reloadData()
