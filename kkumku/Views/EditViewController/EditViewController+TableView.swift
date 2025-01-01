@@ -107,7 +107,7 @@ extension EditViewController: UITableViewDataSource {
         case .startTimeDetePicker:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "DateInputTableViewCell")
                 as? DateInputTableViewCell {
-                cell.configure("취침 시각", onChange: onChangeSleepStartTime)
+                cell.configure("취침 시각", value: workingDream.startAt, onChange: onChangeSleepStartTime)
                 cell.selectionStyle = .none
                 return cell
             }
@@ -115,7 +115,7 @@ extension EditViewController: UITableViewDataSource {
         case .endTimeDatePicker:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "DateInputTableViewCell")
                 as? DateInputTableViewCell {
-                cell.configure("기상 시각", onChange: onChangeSleepEndTime)
+                cell.configure("기상 시각", value: workingDream.endAt, onChange: onChangeSleepEndTime)
                 cell.selectionStyle = .none
                 return cell
             }
@@ -123,7 +123,7 @@ extension EditViewController: UITableViewDataSource {
         case .memoTextView:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewTableViewCell")
                 as? TextViewTableViewCell {
-                cell.configure("무슨 일이 있었나요?", onChange: onChangeMemo)
+                cell.configure("무슨 일이 있었나요?", value: workingDream.memo, onChange: onChangeMemo)
                 cell.selectionStyle = .none
                 return cell
             }
@@ -131,7 +131,7 @@ extension EditViewController: UITableViewDataSource {
         case .dreamClassSegmentedControl:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "SelectInputTableViewCell")
                 as? SelectInputTableViewCell {
-                cell.configure("분류", choices: dreamClassSegmentedList, onChange: onChangeClass)
+                cell.configure("분류", choices: dreamClassSegmentedList, value: workingDream.dreamClass.rawValue, onChange: onChangeClass)
                 cell.selectionStyle = .none
                 return cell
             }
@@ -139,7 +139,7 @@ extension EditViewController: UITableViewDataSource {
         case .isLucidSegmentedControl:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "SelectInputTableViewCell")
                 as? SelectInputTableViewCell {
-                cell.configure("자각몽", choices: isLucidSegmentedList, onChange: onChangeLucidOrNot)
+                cell.configure("자각몽", choices: isLucidSegmentedList, value: workingDream.isLucid ? 1 : 0, onChange: onChangeLucidOrNot)
                 cell.selectionStyle = .none
                 return cell
             }

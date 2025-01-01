@@ -10,7 +10,7 @@ import UIKit
 class EditViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var isInsertingNewDream = false
+    var isInsertingNewDream = true
     var workingDream: Dream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
     
     var isEditStarted: Bool = false {

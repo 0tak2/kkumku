@@ -62,18 +62,28 @@ extension EditViewController {
     @objc func onTappedSave() {
         print("onTappedSave: \(workingDream)")
         
-        if isEditStarted {
-            dreamRepository.save(workingDream)
-            let savedDream = workingDream
-            workingDream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
-            tableView.reloadData()
-            isEditStarted.toggle()
-            
+        guard isEditStarted else { return }
+        
+        let savedDream = dreamRepository.save(workingDream)
+        workingDream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
+        tableView.reloadData()
+        isEditStarted.toggle()
+        
+        if isInsertingNewDream {
             let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
             guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
                     as? DetailDreamViewController else { return }
             detailViewController.dream = savedDream
             navigationController?.pushViewController(detailViewController, animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
+            
+            guard let detailViewController = navigationController?.topViewController as? DetailDreamViewController else {
+                return
+            }
+            
+            detailViewController.dream = savedDream
+            detailViewController.loadData()
         }
     }
 }

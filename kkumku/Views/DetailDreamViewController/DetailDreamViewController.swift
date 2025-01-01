@@ -24,10 +24,26 @@ class DetailDreamViewController: UIViewController {
         
         navigationItem.title = "꿈"
         
+        // Text View Height
+        let size = CGSize(width: self.contentTextView.frame.width, height: .infinity)
+        let estimatedSize = contentTextView.sizeThatFits(size)
+        contentTextView.constraints.forEach { (constraint) in
+            constraint.constant = estimatedSize.height
+        }
+        contentTextView.sizeToFit()
+        contentTextView.isScrollEnabled = false
+        
+        // button handlers
+        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        
+        loadData()
+    }
+    
+    func loadData() {
         guard let dream = dream else {
             fatalError("dream을 지정해야 합니다.")
         }
-
+        
         contentTextView.text = dream.memo
         dateLabel.text = "\(dream.startAt.localizedString) ~ \(dream.endAt.localizedString)"
         dreamClassLabel.text = dream.dreamClass.descriptionFull()
@@ -41,28 +57,18 @@ class DetailDreamViewController: UIViewController {
             tagStackView.addArrangedSubview(label)
         }
         
-        if !dream.isLucid {
-            isLucidLabel.isHidden = true
-        }
-        
-        // Text View Height
-        let size = CGSize(width: self.contentTextView.frame.width, height: .infinity)
-        let estimatedSize = contentTextView.sizeThatFits(size)
-        contentTextView.constraints.forEach { (constraint) in
-            constraint.constant = estimatedSize.height
-        }
-        contentTextView.sizeToFit()
-        contentTextView.isScrollEnabled = false
+        isLucidLabel.isHidden = !dream.isLucid
     }
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension DetailDreamViewController {
+    @objc func editButtonTapped() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "EditViewController") as? EditViewController else {
+            return
+        }
+        vc.isInsertingNewDream = false
+        vc.workingDream = dream
+        navigationController?.pushViewController(vc, animated: true)
     }
-    */
-
 }

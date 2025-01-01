@@ -34,12 +34,17 @@ class TextViewTableViewCell: UITableViewCell {
         onChange = { _ in }
     }
     
-    func configure(_ placeholder: String?, onChange: @escaping (UITextView) -> Void) {
+    func configure(_ placeholder: String?, value: String, onChange: @escaping (UITextView) -> Void) {
         if let placeholder = placeholder {
             self.placeholder = placeholder
             textView.text = placeholder
         } else {
             self.placeholder = ""
+        }
+        
+        if !value.isEmpty {
+            textView.text = value
+            isPlaceholderShowing = false
         }
         
         self.onChange = onChange
