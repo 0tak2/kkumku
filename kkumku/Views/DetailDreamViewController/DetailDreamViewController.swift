@@ -18,6 +18,7 @@ class DetailDreamViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     
     var dream: Dream!
+    let dreamRepository = DreamRepository.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class DetailDreamViewController: UIViewController {
         
         // button handlers
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         
         loadData()
     }
@@ -71,5 +73,19 @@ extension DetailDreamViewController {
         vc.isInsertingNewDream = false
         vc.workingDream = dream
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func deleteButtonTapped() {
+        let alert = UIAlertController(title: "정말로 삭제하시겠습니까?", message: "이 작업은 돌이킬 수 없습니다.", preferredStyle: .actionSheet)
+        let no = UIAlertAction(title: "취소", style: .destructive)
+        let yes = UIAlertAction(title: "삭제", style: .default) { [weak self] _ in
+            if let id = self?.dream.id {
+                self?.dreamRepository.delete(by: id)
+            }
+            self?.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(no)
+        alert.addAction(yes)
+        present(alert, animated: true)
     }
 }

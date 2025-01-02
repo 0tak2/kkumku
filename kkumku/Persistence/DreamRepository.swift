@@ -187,6 +187,52 @@ final class DreamRepository {
         return result ?? []
     }
     
+    func find(id: UUID) -> Dream? {
+        return withContext { context in
+            let fetchRequest = DreamEntity.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "id == %@", id as NSUUID)
+            let result = try context.fetch(fetchRequest)
+            if let dreamEntity = result.first {
+                var tags: [String] = []
+                
+                for dreamAndTagEntity in dreamEntity.dreamAndTags ?? NSSet() {
+                    if let dreamAndTagEntity = dreamAndTagEntity as? DreamAndTagEntity,
+                       let tagEntity = dreamAndTagEntity.tag,
+                       let tag = tagEntity.tag {
+                        tags.append(tag)
+                    }
+                }
+                
+                return Dream(
+                    id: dreamEntity.id!,
+                    startAt: dreamEntity.startAt!,
+                    endAt: dreamEntity.endAt!,
+                    memo: dreamEntity.memo!,
+                    dreamClass: DreamClass(rawValue: Int(dreamEntity.dreamClass))!,
+                    isLucid: dreamEntity.isLucid,
+                    tags: tags)
+            }
+            
+            throw NSError(domain: "entity not found", code: 0)
+        }
+    }
+    
+    func delete(by id: UUID) {
+        withContext { context in
+            let fetchRequest = DreamEntity.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "id == %@", id as NSUUID)
+            
+            let fetchResult: [DreamEntity] = try context.fetch(fetchRequest)
+            
+            if let entity = fetchResult.first {
+                context.delete(entity)
+                try context.save()
+            }
+        } onFailure: { context, error in
+            context.rollback()
+        }
+    }
+    
     init(coreData: CoreDataStack) {
         self.coreData = coreData
     }
