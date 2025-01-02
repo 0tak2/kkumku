@@ -24,15 +24,6 @@ class DetailDreamViewController: UIViewController {
         
         navigationItem.title = "꿈"
         
-        // Text View Height
-        let size = CGSize(width: self.contentTextView.frame.width, height: .infinity)
-        let estimatedSize = contentTextView.sizeThatFits(size)
-        contentTextView.constraints.forEach { (constraint) in
-            constraint.constant = estimatedSize.height
-        }
-        contentTextView.sizeToFit()
-        contentTextView.isScrollEnabled = false
-        
         // button handlers
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
@@ -45,6 +36,15 @@ class DetailDreamViewController: UIViewController {
         }
         
         contentTextView.text = dream.memo
+        
+        // Text View Height
+        let size = CGSize(width: self.contentTextView.frame.width, height: .infinity)
+        let estimatedSize = contentTextView.sizeThatFits(size)
+        contentTextView.constraints.forEach { (constraint) in
+            constraint.constant = estimatedSize.height
+        }
+        contentTextView.sizeToFit()
+        contentTextView.isScrollEnabled = false
         
         dateLabel.text = "\(dream.startAt.localizedString) ~ \(dream.endAt.localizedStringNoYear)"
         dreamClassLabel.text = dream.dreamClass.descriptionFull()
