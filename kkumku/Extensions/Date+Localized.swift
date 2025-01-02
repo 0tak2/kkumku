@@ -22,4 +22,11 @@ extension Date {
         
         return dateFormatter.string(from: self)
     }
+    
+    var localizedStringNoYear: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "MM월 dd일 a hh시 mm분"
+        return dateFormatter.string(from: self)
+    }
 }

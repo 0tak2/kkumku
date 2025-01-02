@@ -45,7 +45,8 @@ class DetailDreamViewController: UIViewController {
         }
         
         contentTextView.text = dream.memo
-        dateLabel.text = "\(dream.startAt.localizedString) ~ \(dream.endAt.localizedString)"
+        
+        dateLabel.text = "\(dream.startAt.localizedString) ~ \(dream.endAt.localizedStringNoYear)"
         dreamClassLabel.text = dream.dreamClass.descriptionFull()
         
         tagStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }

@@ -44,7 +44,7 @@
                                                         <rect key="frame" x="0.0" y="500" width="393" height="64"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12월 24일 11시 00분 ~ 12월 25일 07시 00분" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKg-lC-u4Q">
-                                                                <rect key="frame" x="2" y="47.666666666666629" width="259" height="17"/>
+                                                                <rect key="frame" x="2" y="47.666666666666629" width="389" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                                 <color key="textColor" name="calmColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -53,6 +53,7 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="zKg-lC-u4Q" firstAttribute="leading" secondItem="3Ux-La-8ya" secondAttribute="leading" constant="2" id="B98-Nq-87k"/>
+                                                            <constraint firstAttribute="trailing" secondItem="zKg-lC-u4Q" secondAttribute="trailing" constant="2" id="FCf-dt-Vms"/>
                                                             <constraint firstAttribute="height" constant="64" id="L7G-Oc-qLH"/>
                                                             <constraint firstItem="zKg-lC-u4Q" firstAttribute="centerY" secondItem="3Ux-La-8ya" secondAttribute="centerY" constant="24" id="sbe-GN-vgX"/>
                                                         </constraints>
