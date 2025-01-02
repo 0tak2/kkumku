@@ -30,14 +30,14 @@ class SelectInputTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(_ labelText: String, choices: [String], onChange: @escaping (_: UISegmentedControl) -> Void) {
+    func configure(_ labelText: String, choices: [String], value: Int, onChange: @escaping (_: UISegmentedControl) -> Void) {
         label.text = labelText
         
         for (index, choice) in choices.enumerated() {
             segementedControl.insertSegment(withTitle: choice, at: index, animated: false)
         }
         
-        segementedControl.selectedSegmentIndex = 0
+        segementedControl.selectedSegmentIndex = value
         
         self.onChange = onChange
     }

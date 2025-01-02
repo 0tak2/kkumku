@@ -28,8 +28,9 @@ class DateInputTableViewCell: UITableViewCell {
         onChange = { _ in }
     }
     
-    func configure(_ labelText: String, onChange: @escaping (UIDatePicker) -> Void) {
+    func configure(_ labelText: String, value: Date, onChange: @escaping (UIDatePicker) -> Void) {
         label.text = labelText
+        datePicker.date = value
         self.onChange = onChange
     }
     
