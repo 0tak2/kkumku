@@ -19,7 +19,7 @@ class ExploreViewController: UIViewController {
     
     var dataSource: DataSource!
     
-    let dreamRepository = DreamRepository()
+    let dreamRepository = DreamRepository.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()

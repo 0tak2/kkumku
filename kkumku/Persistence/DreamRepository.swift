@@ -8,6 +8,8 @@
 import CoreData
 
 final class DreamRepository {
+    static let shared = DreamRepository()
+    
     let coreData: CoreDataStack
     
     func withContext<T>(_ task: (_ context: NSManagedObjectContext) throws -> T,
