@@ -33,7 +33,7 @@ class Log {
        return shouldUsePrint
     }()
     
-    private static func writeWithOSLog(_ message: String, level: LogLevel, category: LogCategory) {        
+    private static func writeWithOSLog(_ message: String, level: LogLevel, category: LogCategory) {
         if let logger = loggers[category] {
             switch level {
             case .info:

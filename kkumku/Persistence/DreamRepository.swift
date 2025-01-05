@@ -233,11 +233,12 @@ final class DreamRepository {
         }
     }
     
-    init(coreData: CoreDataStack) {
+    private init(coreData: CoreDataStack) {
         self.coreData = coreData
+        Log.info("DreamRepository 초기화", for: .system)
     }
     
-    convenience init() {
+    private convenience init() {
         self.init(coreData: CoreDataStack.shared)
     }
 }
