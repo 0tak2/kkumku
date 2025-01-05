@@ -9,7 +9,16 @@ import Foundation
 import os
 
 class Log {
-    private static var loggers: [LogCategory: Logger] = [:]
+    private static var loggers: [LogCategory: Logger] = {
+        var workingDict: [LogCategory: Logger] = [:]
+        
+        LogCategory.allCases.forEach { category in
+            workingDict[category] = Logger(subsystem: "com.youngtaek.kkumku", category: category.rawValue)
+        }
+        
+        return workingDict
+    }()
+    
     private static let usePrintNotOSLog: Bool = {
         guard let filePath = Bundle.main.path(forResource: "Configs", ofType: "plist"),
               let configDict = NSDictionary(contentsOfFile: filePath) else {
@@ -24,11 +33,7 @@ class Log {
        return shouldUsePrint
     }()
     
-    private static func writeWithOSLog(_ message: String, level: LogLevel, category: LogCategory) {
-        if loggers[category] == nil {
-            loggers[category] = Logger(subsystem: "com.youngtaek.kkumku", category: category.rawValue)
-        }
-        
+    private static func writeWithOSLog(_ message: String, level: LogLevel, category: LogCategory) {        
         if let logger = loggers[category] {
             switch level {
             case .info:
@@ -71,7 +76,7 @@ class Log {
         case error
     }
     
-    enum LogCategory: String {
+    enum LogCategory: String, CaseIterable {
         case domain
         case network
         case system
