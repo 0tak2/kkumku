@@ -73,9 +73,8 @@ extension ExploreViewController {
 
 extension ExploreViewController: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("ExploreViewController")
         if (scrollView.contentOffset.y + 1) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
-            print("load more")
+            Log.debug("load more")
             appendMoreData()
         }
     }

@@ -21,7 +21,7 @@ final class DreamRepository {
         do {
             return try task(context)
         } catch let error as NSError {
-            print("[DreamRepository] failed job... \(error) \(error.userInfo)")
+            Log.error("[DreamRepository] failed job... \(error) \(error.userInfo)")
             if let onFailure = onFailure {
                 onFailure(context, error)
             }

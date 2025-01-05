@@ -11,19 +11,19 @@ extension EditViewController {
     func onChangeSleepStartTime(datepicker: UIDatePicker) {
         isEditStarted = true
         workingDream.startAt = datepicker.date
-        print("onChangeSleepStartTime: \(workingDream)")
+        Log.debug("onChangeSleepStartTime: \(workingDream)")
     }
     
     func onChangeSleepEndTime(datepicker: UIDatePicker) {
         isEditStarted = true
         workingDream.endAt = datepicker.date
-        print("onChangeSleepEndTime: \(workingDream)")
+        Log.debug("onChangeSleepEndTime: \(workingDream)")
     }
     
     func onChangeMemo(textView: UITextView) {
         isEditStarted = true
         workingDream.memo = textView.text ?? ""
-        print("onChangeMemo: \(workingDream)")
+        Log.debug("onChangeMemo: \(workingDream)")
         
         let pattern = #"\s+"# // whitespaces
         let regex = try! Regex(pattern)
@@ -45,7 +45,7 @@ extension EditViewController {
         isEditStarted = true
         let selectedIndex = segment.selectedSegmentIndex
         workingDream.dreamClass = .init(rawValue: selectedIndex) ?? .auspicious
-        print("onChangeClass: \(workingDream)")
+        Log.debug("onChangeClass: \(workingDream)")
     }
     
     var isLucidSegmentedList: [String] {
@@ -56,11 +56,11 @@ extension EditViewController {
         isEditStarted = true
         let selectedIndex = segment.selectedSegmentIndex
         workingDream.isLucid = selectedIndex == 1
-        print("onChangeLucidOrNot: \(workingDream)")
+        Log.debug("onChangeLucidOrNot: \(workingDream)")
     }
     
     @objc func onTappedSave() {
-        print("onTappedSave: \(workingDream)")
+        Log.debug("onTappedSave: \(workingDream)")
         
         guard isEditStarted else { return }
         
