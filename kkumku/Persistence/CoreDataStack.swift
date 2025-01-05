@@ -25,6 +25,6 @@ final class CoreDataStack {
     }()
     
     private init() {
-        
+        Log.info("CoreDataStack 초기화", for: .system)
     }
 }
