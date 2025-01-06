@@ -13,6 +13,11 @@ class SearchDreamViewController: UIViewController {
     var dataSource: DataSource!
     var headerCellRegistration: UICollectionView.CellRegistration<UICollectionViewListCell, Item>!
     var tagCellRegistration: UICollectionView.CellRegistration<UICollectionViewListCell, Item>!
+    var currentSections: [Section]?
+    
+    let dreamRepository: DreamRepository = DreamRepository.shared
+    
+    var loadedDreams: [Dream] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +29,7 @@ class SearchDreamViewController: UIViewController {
         searchController.searchBar.placeholder = "꿈 찾기"
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -34,11 +40,5 @@ class SearchDreamViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         navigationItem.searchController?.isActive = true
         navigationItem.searchController?.becomeFirstResponder()
-    }
-}
-
-extension SearchDreamViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        navigationController?.popViewController(animated: true)
     }
 }

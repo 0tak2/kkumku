@@ -26,7 +26,7 @@ extension SearchDreamViewController {
         registerCells()
         setDataSource()
         setLayout()
-        applySnapshot()
+        applyInitailSnapshot()
     }
     
     private func registerCells() {
@@ -75,9 +75,10 @@ extension SearchDreamViewController {
         })
     }
     
-    private func applySnapshot() {
+    func applyInitailSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.header, .allTags])
+        currentSections = [.header, .allTags]
         
         snapshot.appendItems([.title("전체 태그")], toSection: .header)
         snapshot.appendItems(Array(1...10).map({ .tag("태그\($0)") }), toSection: .allTags)
@@ -85,9 +86,31 @@ extension SearchDreamViewController {
         dataSource.apply(snapshot)
     }
     
+    func applySnapshot(of searchResult: [Dream]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapshot.appendSections([.header, .searchResults])
+        currentSections = [.header, .searchResults]
+        
+        snapshot.appendItems([.title("검색 결과")], toSection: .header)
+        
+        let searchResultItems: [Item] = searchResult.map { dream in
+            Item.dreamCard(dream)
+        }
+        snapshot.appendItems(searchResultItems, toSection: .searchResults)
+        
+        snapshot.reloadSections([.header, .searchResults])
+        
+        dataSource.apply(snapshot)
+    }
+    
     private func setLayout() {
-        let sectionProvider: (Int, any NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? = {sectionIndex, layoutEnvironment in
-            let sectionKind = Section(rawValue: sectionIndex)
+        let sectionProvider: (Int, any NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? = { [weak self] sectionIndex, layoutEnvironment in
+            guard let currentSections = self?.currentSections else {
+                Log.error("currentSection이 nil이 되어서는 안됩니다")
+                return nil
+            }
+            
+            let sectionKind = currentSections[sectionIndex]
             
             if sectionKind == .header {
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -124,6 +147,7 @@ extension SearchDreamViewController {
                 return section
             }
             
+            Log.error("알 수 없는 섹션입니다 -- index \(sectionIndex)")
             return nil
         }
         
@@ -133,11 +157,35 @@ extension SearchDreamViewController {
 
 extension SearchDreamViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        Log.debug("did select at: \(indexPath)")
+        guard let currentSections = currentSections else {
+            Log.error("currentSection이 nil이 되어서는 안됩니다")
+            return
+        }
+        
+        let section = currentSections[indexPath.section]
+        
+        if section == .allTags {
+            Log.debug("selected tag - index \(indexPath.item)")
+            return
+        }
+        
+        if section == .searchResults {
+            let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
+            guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
+                    as? DetailDreamViewController else { return }
+            detailViewController.dream = loadedDreams[indexPath.item]
+            navigationController?.pushViewController(detailViewController, animated: true)
+            return
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let section = Section(rawValue: indexPath.section)
+        guard let currentSections = currentSections else {
+            Log.error("currentSection이 nil이 되어서는 안됩니다")
+            return false
+        }
+        
+        let section = currentSections[indexPath.section]
         
         if section == .header {
             return false
