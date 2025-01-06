@@ -50,14 +50,20 @@ extension SearchDreamViewController {
     }
     
     private func setDataSource() {
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, item in
+            guard let headerCellRegistration = self?.headerCellRegistration,
+                  let tagCellRegistration = self?.tagCellRegistration else {
+                      
+                return UICollectionViewCell()
+            }
+            
             if case .title(_) = item {
-                let cell = collectionView.dequeueConfiguredReusableCell(using: self.headerCellRegistration, for: indexPath, item: item)
+                let cell = collectionView.dequeueConfiguredReusableCell(using: headerCellRegistration, for: indexPath, item: item)
                 return cell
             }
             
             if case .tag(_) = item {
-                let cell = collectionView.dequeueConfiguredReusableCell(using: self.tagCellRegistration, for: indexPath, item: item)
+                let cell = collectionView.dequeueConfiguredReusableCell(using: tagCellRegistration, for: indexPath, item: item)
                 return cell
             }
             

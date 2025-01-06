@@ -35,10 +35,14 @@ extension ExploreViewController {
     }
     
     func setDataSource() {
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, item in
+            guard let sortButtonCellRegistration = self?.sortButtonCellRegistration else {
+                return UICollectionViewCell()
+            }
+            
             switch item {
             case .sortButton:
-                let cell = collectionView.dequeueConfiguredReusableCell(using: self.sortButtonCellRegistration, for: indexPath, item: item)
+                let cell = collectionView.dequeueConfiguredReusableCell(using: sortButtonCellRegistration, for: indexPath, item: item)
                 return cell
             case .dreamCard(let dream):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DreamCollectionViewCell", for: indexPath)
@@ -50,7 +54,7 @@ extension ExploreViewController {
     }
     
     func registerCells() {
-        sortButtonCellRegistration = UICollectionView.CellRegistration<SortButtonCollectionViewCell, Item> { cell, _, item in
+        sortButtonCellRegistration = UICollectionView.CellRegistration<SortButtonCollectionViewCell, Item> { [weak self] cell, _, item in
             if case let .sortButton(action) = item {
                 let title = action.description()
                 let isSelected: Bool
@@ -58,9 +62,9 @@ extension ExploreViewController {
                 switch action {
                 case .descend:
                     // 최신부터
-                    self.toggleRecentButton = cell.getToggler()
+                    self?.toggleRecentButton = cell.getToggler()
                     
-                    isSelected = !self.isAscending
+                    isSelected = !(self?.isAscending ?? false)
                     
                     onTappedHandler = { [weak self] in
                         self?.isAscending = false
@@ -72,9 +76,9 @@ extension ExploreViewController {
                     }
                 case .ascend:
                     // 과거부터
-                    self.toggleOldestButton = cell.getToggler()
+                    self?.toggleOldestButton = cell.getToggler()
                     
-                    isSelected = self.isAscending
+                    isSelected = (self?.isAscending ?? false)
                     
                     onTappedHandler = { [weak self] in
                         self?.isAscending = true
