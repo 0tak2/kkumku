@@ -26,7 +26,7 @@ class ExploreViewController: UIViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "모아보기"
-        navigationItem.searchController = UISearchController()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchButtonTapped))
         
         setDataSource()
         loadCurrentData()
@@ -57,5 +57,9 @@ class ExploreViewController: UIViewController {
         sortOldestButton.isSelected = true
         
         reloadData()
+    }
+    
+    @objc func searchButtonTapped() {
+        Log.debug("Will go to SearchView")
     }
 }
