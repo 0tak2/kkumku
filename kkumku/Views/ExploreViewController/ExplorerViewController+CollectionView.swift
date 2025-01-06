@@ -37,7 +37,7 @@ extension ExploreViewController {
     func setDataSource() {
         dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             switch item {
-            case .sortButton(let action):
+            case .sortButton:
                 let cell = collectionView.dequeueConfiguredReusableCell(using: self.sortButtonCellRegistration, for: indexPath, item: item)
                 return cell
             case .dreamCard(let dream):

@@ -43,6 +43,8 @@ class ExploreViewController: UIViewController {
     }
     
     @objc func searchButtonTapped() {
-        Log.debug("Will go to SearchView")
+        let storyboard = UIStoryboard(name: "SearchDreamView", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "SearchDreamViewController")
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
