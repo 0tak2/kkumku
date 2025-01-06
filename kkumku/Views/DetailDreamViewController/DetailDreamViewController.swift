@@ -77,8 +77,8 @@ extension DetailDreamViewController {
     
     @objc func deleteButtonTapped() {
         let alert = UIAlertController(title: "정말로 삭제하시겠습니까?", message: "이 작업은 돌이킬 수 없습니다.", preferredStyle: .actionSheet)
-        let no = UIAlertAction(title: "취소", style: .destructive)
-        let yes = UIAlertAction(title: "삭제", style: .default) { [weak self] _ in
+        let no = UIAlertAction(title: "취소", style: .default)
+        let yes = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
             if let id = self?.dream.id {
                 self?.dreamRepository.delete(by: id)
             }
