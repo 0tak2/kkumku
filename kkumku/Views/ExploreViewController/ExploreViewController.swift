@@ -8,34 +8,33 @@
 import UIKit
 
 class ExploreViewController: UIViewController {
-    @IBOutlet weak var sortRecentButton: UIButton!
-    @IBOutlet weak var sortOldestButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    var dataSource: DataSource!
+    var sortButtonCellRegistration: UICollectionView.CellRegistration<SortButtonCollectionViewCell, Item>!
+    
+    let dreamRepository = DreamRepository.shared
     
     var isAscending = false
     var numberOfItems = 5
     var page = 1
     var pageEnded = false
     
-    var dataSource: DataSource!
-    
-    let dreamRepository = DreamRepository.shared
+    var toggleRecentButton: ((Bool) -> Void)?
+    var toggleOldestButton: ((Bool) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "모아보기"
-        navigationItem.searchController = UISearchController()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchButtonTapped))
         
+        registerCells()
         setDataSource()
         loadCurrentData()
         collectionView.collectionViewLayout = setLayout()
         collectionView.delegate = self
-        
-        sortRecentButton.addTarget(self, action: #selector(sortRecentButtonTapped), for: .touchUpInside)
-        sortOldestButton.addTarget(self, action: #selector(sortOldestButtonTapped), for: .touchUpInside)
-        sortRecentButton.isSelected = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,19 +42,9 @@ class ExploreViewController: UIViewController {
         reloadData()
     }
     
-    @objc func sortRecentButtonTapped() {
-        isAscending = false
-        sortRecentButton.isSelected = true
-        sortOldestButton.isSelected = false
-        
-        reloadData()
-    }
-    
-    @objc func sortOldestButtonTapped() {
-        isAscending = true
-        sortRecentButton.isSelected = false
-        sortOldestButton.isSelected = true
-        
-        reloadData()
+    @objc func searchButtonTapped() {
+        let storyboard = UIStoryboard(name: "SearchDreamView", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "SearchDreamViewController")
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -189,40 +189,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="lc4-1n-K3Z">
-                                <rect key="frame" x="0.0" y="103" width="114.66666666666667" height="24"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXM-1d-R8Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="55.333333333333336" height="24"/>
-                                        <color key="tintColor" name="primaryColor"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="최신순" cornerStyle="capsule">
-                                            <backgroundConfiguration key="background">
-                                                <color key="strokeColor" name="calmColor"/>
-                                            </backgroundConfiguration>
-                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="12"/>
-                                            <color key="baseForegroundColor" name="calmColor"/>
-                                        </buttonConfiguration>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WdT-dS-CmR">
-                                        <rect key="frame" x="59.333333333333329" y="0.0" width="55.333333333333329" height="24"/>
-                                        <color key="tintColor" name="primaryColor"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="과거순" cornerStyle="capsule">
-                                            <backgroundConfiguration key="background">
-                                                <color key="strokeColor" name="calmColor"/>
-                                            </backgroundConfiguration>
-                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="12"/>
-                                            <color key="baseForegroundColor" name="calmColor"/>
-                                        </buttonConfiguration>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="cvf-ng-flO"/>
-                                </constraints>
-                            </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mNT-rF-ggG">
-                                <rect key="frame" x="0.0" y="127" width="393" height="642"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="749"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="z2o-04-dO6">
                                     <size key="itemSize" width="393" height="317"/>
@@ -325,20 +293,15 @@
                         <viewLayoutGuide key="safeArea" id="204-Fk-kZZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="lc4-1n-K3Z" firstAttribute="top" secondItem="204-Fk-kZZ" secondAttribute="top" id="HPQ-yg-xJX"/>
-                            <constraint firstItem="204-Fk-kZZ" firstAttribute="trailing" secondItem="mNT-rF-ggG" secondAttribute="trailing" id="WOH-br-wUa"/>
-                            <constraint firstItem="lc4-1n-K3Z" firstAttribute="leading" secondItem="204-Fk-kZZ" secondAttribute="leading" id="p2n-7r-vfK"/>
-                            <constraint firstItem="mNT-rF-ggG" firstAttribute="leading" secondItem="204-Fk-kZZ" secondAttribute="leading" id="tP9-Le-bhC"/>
-                            <constraint firstItem="204-Fk-kZZ" firstAttribute="bottom" secondItem="mNT-rF-ggG" secondAttribute="bottom" id="yPc-UX-2bl"/>
-                            <constraint firstItem="mNT-rF-ggG" firstAttribute="top" secondItem="lc4-1n-K3Z" secondAttribute="bottom" id="z1q-Ct-k6d"/>
-                            <constraint firstItem="204-Fk-kZZ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lc4-1n-K3Z" secondAttribute="trailing" id="zmO-oe-hj5"/>
+                            <constraint firstItem="mNT-rF-ggG" firstAttribute="leading" secondItem="204-Fk-kZZ" secondAttribute="leading" id="OPq-Yq-jjw"/>
+                            <constraint firstItem="mNT-rF-ggG" firstAttribute="top" secondItem="204-Fk-kZZ" secondAttribute="top" id="SNl-Pe-JIr"/>
+                            <constraint firstItem="mNT-rF-ggG" firstAttribute="bottom" secondItem="OkE-Jg-Nks" secondAttribute="bottom" id="m7i-M6-adL"/>
+                            <constraint firstItem="mNT-rF-ggG" firstAttribute="trailing" secondItem="204-Fk-kZZ" secondAttribute="trailing" id="sQH-ds-Nq4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7rU-bj-fYD"/>
                     <connections>
                         <outlet property="collectionView" destination="mNT-rF-ggG" id="txx-7S-Dly"/>
-                        <outlet property="sortOldestButton" destination="WdT-dS-CmR" id="9I1-f8-td5"/>
-                        <outlet property="sortRecentButton" destination="iXM-1d-R8Q" id="QxA-7z-q89"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F6J-AH-gah" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -421,9 +384,6 @@
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <namedColor name="calmColor">
-            <color red="0.93333333333333335" green="0.92941176470588238" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="primaryColor">
             <color red="1" green="0.94117647058823528" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
