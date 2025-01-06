@@ -38,9 +38,20 @@ extension ExploreViewController {
         dataSource = DataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             switch item {
             case .sortButton(let action):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SortButtonCollectionViewCell", for: indexPath)
-                        as? SortButtonCollectionViewCell else { return UICollectionViewCell() }
-                
+                let cell = collectionView.dequeueConfiguredReusableCell(using: self.sortButtonCellRegistration, for: indexPath, item: item)
+                return cell
+            case .dreamCard(let dream):
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DreamCollectionViewCell", for: indexPath)
+                        as? DreamCollectionViewCell else { return UICollectionViewCell() }
+                cell.configure(dream: dream)
+                return cell
+            }
+        })
+    }
+    
+    func registerCells() {
+        sortButtonCellRegistration = UICollectionView.CellRegistration<SortButtonCollectionViewCell, Item> { cell, _, item in
+            if case let .sortButton(action) = item {
                 let title = action.description()
                 let isSelected: Bool
                 let onTappedHandler: () -> Void
@@ -77,14 +88,8 @@ extension ExploreViewController {
                 
                 
                 cell.configure(title: title, isSelected: isSelected, do: onTappedHandler )
-                return cell
-            case .dreamCard(let dream):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DreamCollectionViewCell", for: indexPath)
-                        as? DreamCollectionViewCell else { return UICollectionViewCell() }
-                cell.configure(dream: dream)
-                return cell
             }
-        })
+        }
     }
     
     func setLayout() -> UICollectionViewCompositionalLayout {

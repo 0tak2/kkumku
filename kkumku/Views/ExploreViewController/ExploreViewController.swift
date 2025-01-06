@@ -10,14 +10,15 @@ import UIKit
 class ExploreViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var dataSource: DataSource!
+    var sortButtonCellRegistration: UICollectionView.CellRegistration<SortButtonCollectionViewCell, Item>!
+    
+    let dreamRepository = DreamRepository.shared
+    
     var isAscending = false
     var numberOfItems = 5
     var page = 1
     var pageEnded = false
-    
-    var dataSource: DataSource!
-    
-    let dreamRepository = DreamRepository.shared
     
     var toggleRecentButton: ((Bool) -> Void)?
     var toggleOldestButton: ((Bool) -> Void)?
@@ -29,11 +30,11 @@ class ExploreViewController: UIViewController {
         navigationItem.title = "모아보기"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchButtonTapped))
         
+        registerCells()
         setDataSource()
         loadCurrentData()
         collectionView.collectionViewLayout = setLayout()
         collectionView.delegate = self
-        collectionView.register(SortButtonCollectionViewCell.self, forCellWithReuseIdentifier: "SortButtonCollectionViewCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
