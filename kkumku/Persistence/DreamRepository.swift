@@ -265,6 +265,19 @@ final class DreamRepository {
         }
     }
     
+    func fetchAllTags() -> [String] {
+        let result = withContext { context in
+            let fetchRequest = DreamTagEntity.fetchRequest()
+            let tagEntities = try context.fetch(fetchRequest)
+            
+            return tagEntities.compactMap { entity in
+                entity.tag
+            }
+        }
+        
+        return result ?? []
+    }
+    
     private init(coreData: CoreDataStack) {
         self.coreData = coreData
         Log.info("DreamRepository 초기화", for: .system)

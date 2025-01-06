@@ -18,6 +18,7 @@ class SearchDreamViewController: UIViewController {
     let dreamRepository: DreamRepository = DreamRepository.shared
     
     var loadedDreams: [Dream] = []
+    var loadedTags: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

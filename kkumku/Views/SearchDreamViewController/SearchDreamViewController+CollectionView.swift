@@ -81,7 +81,13 @@ extension SearchDreamViewController {
         currentSections = [.header, .allTags]
         
         snapshot.appendItems([.title("전체 태그")], toSection: .header)
-        snapshot.appendItems(Array(1...10).map({ .tag("태그\($0)") }), toSection: .allTags)
+        
+        let tags: [String] = dreamRepository.fetchAllTags()
+        loadedTags = tags
+        let tagItems: [Item] = tags.map { tag in
+            Item.tag(tag)
+        }
+        snapshot.appendItems(tagItems, toSection: .allTags)
         
         dataSource.apply(snapshot)
     }
@@ -163,9 +169,13 @@ extension SearchDreamViewController: UICollectionViewDelegate {
         }
         
         let section = currentSections[indexPath.section]
+980408
         
         if section == .allTags {
-            Log.debug("selected tag - index \(indexPath.item)")
+            let tag = loadedTags[indexPath.item]
+            
+            let searchController = navigationItem.searchController
+            searchController?.searchBar.text = "#\(tag)"
             return
         }
         
