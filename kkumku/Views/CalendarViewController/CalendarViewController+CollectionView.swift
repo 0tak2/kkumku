@@ -32,7 +32,7 @@ extension CalendarViewController {
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(100))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(120))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
@@ -103,6 +103,22 @@ extension CalendarViewController {
 
 extension CalendarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if let selectedDate = selectedDate, let currentDreams = dreamsForDay[selectedDate] {
+            return !currentDreams.isEmpty // 레이블이 노출되어 있는 경우 선택 안됨. 꿈인 경우 선택됨
+        }
+        
         return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let selectedDate = selectedDate, let currentDreams = dreamsForDay[selectedDate] else {
+            return
+        }
+        
+        let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
+        guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
+                as? DetailDreamViewController else { return }
+        detailViewController.dream = currentDreams[indexPath.item]
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

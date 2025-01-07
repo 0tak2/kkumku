@@ -18,6 +18,7 @@ class CalendarViewController: UIViewController {
     
     let dreamRepository: DreamRepository = DreamRepository.shared
     var dreamsForDay: [Date: [Dream]] = [:]
+    var selectedDate: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,12 +57,25 @@ class CalendarViewController: UIViewController {
         
         // init
         calendarView.select(Date.now)
-        loadDreamsOfCurrentMonth()
         
         // MARK: - CollectionView
         initCollectionView()
-        if let normalizedDate = truncateHours(of: Date.now) {
-            applySnapshot(dreams: dreamsForDay[normalizedDate] ?? [])
+        loadDreamsOfCurrentMonth()
+        displayDreams(of: Date.now)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadDreamsOfCurrentMonth()
+        if let selectedDate = selectedDate {
+            displayDreams(of: selectedDate)
+        }
+    }
+    
+    private func displayDreams(of date: Date) {
+        if let normalizedDate = truncateHours(of: date) {
+            let dreamsThatDay = dreamsForDay[normalizedDate] ?? []
+            applySnapshot(dreams: dreamsThatDay)
+            selectedDate = normalizedDate
         } else {
             applySnapshot(dreams: [])
         }
@@ -113,16 +127,31 @@ extension CalendarViewController: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         Log.debug("didSelet data \(date)")
         
-        if let nomalizedDate = truncateHours(of: date) {
-            applySnapshot(dreams: dreamsForDay[nomalizedDate] ?? [])
-        }
+        displayDreams(of: date)
     }
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         loadDreamsOfCurrentMonth()
         calendar.reloadData()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
+            guard let calendar = self?.calendarView else { return }
+            
+            calendar.select(calendar.currentPage) // 이번 달 1일로 선택
+            self?.selectedDate = calendar.currentPage
+            self?.displayDreams(of: calendar.currentPage)
+        }
     }
     
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        let shouldSelectDateComponents = Calendar.current.dateComponents([.month], from: date)
+        let monthOfShouldSelect = shouldSelectDateComponents.month
+        
+        let currentDateComponents = Calendar.current.dateComponents([.month], from: calendar.currentPage)
+        let monthOfCurrentPage = currentDateComponents.month
+        
+        return monthOfShouldSelect == monthOfCurrentPage // 이전달, 다음달 일자의 경우 선택되지 않음
+    }
 }
 
 extension CalendarViewController: FSCalendarDataSource {
