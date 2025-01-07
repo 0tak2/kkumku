@@ -249,6 +249,38 @@ final class DreamRepository {
         return result ?? []
     }
     
+    func findAll(from startDate: Date, to endDate: Date) -> [Dream] {
+        let result = withContext { context in
+            let fetchRequest = DreamEntity.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "endAt >= %@ && endAt <= %@", startDate as NSDate, endDate as NSDate)
+            let result = try context.fetch(fetchRequest)
+            
+            return result.map { entity in
+                // FIXME: Duplicated (태그 넣는 부분)
+                var tags: [String] = []
+                
+                for dreamAndTagEntity in entity.dreamAndTags ?? NSSet() {
+                    if let dreamAndTagEntity = dreamAndTagEntity as? DreamAndTagEntity,
+                       let tagEntity = dreamAndTagEntity.tag,
+                       let tag = tagEntity.tag {
+                        tags.append(tag)
+                    }
+                }
+                
+                return Dream(
+                    id: entity.id!,
+                    startAt: entity.startAt!,
+                    endAt: entity.endAt!,
+                    memo: entity.memo!,
+                    dreamClass: DreamClass(rawValue: Int(entity.dreamClass))!,
+                    isLucid: entity.isLucid,
+                    tags: tags)
+            }
+        }
+        
+        return result ?? []
+    }
+    
     func delete(by id: UUID) {
         withContext { context in
             let fetchRequest = DreamEntity.fetchRequest()
