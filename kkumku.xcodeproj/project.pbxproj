@@ -10,6 +10,7 @@
 		3D2827B92D1BC13B009A851B /* DreamAndTagEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2827B32D1BC13B009A851B /* DreamAndTagEntity+CoreDataClass.swift */; };
 		3D2827BA2D1BC13B009A851B /* DreamTagEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2827B72D1BC13B009A851B /* DreamTagEntity+CoreDataClass.swift */; };
 		3D2827BD2D1BC13B009A851B /* DreamEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2827B52D1BC13B009A851B /* DreamEntity+CoreDataClass.swift */; };
+		3D87F73E2D2CCB4F00BCE483 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3D87F73D2D2CCB4F00BCE483 /* FSCalendar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D87F73E2D2CCB4F00BCE483 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +105,7 @@
 				3D20798F2D18DC5C00E3DD04 /* kkumku */,
 				3D2079AA2D18DC5D00E3DD04 /* kkumkuTests */,
 				3D2079B42D18DC5D00E3DD04 /* kkumkuUITests */,
+				3D87F73C2D2CCB4F00BCE483 /* Frameworks */,
 				3D20798E2D18DC5C00E3DD04 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,6 +118,13 @@
 				3D2079B12D18DC5D00E3DD04 /* kkumkuUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3D87F73C2D2CCB4F00BCE483 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +147,7 @@
 			);
 			name = kkumku;
 			packageProductDependencies = (
+				3D87F73D2D2CCB4F00BCE483 /* FSCalendar */,
 			);
 			productName = kkumku;
 			productReference = 3D20798D2D18DC5C00E3DD04 /* kkumku.app */;
@@ -220,6 +231,9 @@
 			);
 			mainGroup = 3D2079842D18DC5C00E3DD04;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				3D87F73B2D2CC97300BCE483 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3D20798E2D18DC5C00E3DD04 /* Products */;
 			projectDirPath = "";
@@ -588,6 +602,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3D87F73B2D2CC97300BCE483 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.8.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3D87F73D2D2CCB4F00BCE483 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D87F73B2D2CC97300BCE483 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3D2079852D18DC5C00E3DD04 /* Project object */;
 }
