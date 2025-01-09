@@ -1,4 +1,6 @@
-# kkumku
+# 꿈꾸 - kkumku
+
+![](./docs/kkumku-intro.png)
 
 꿈꾸는 꿈꾸는 일기장
 
