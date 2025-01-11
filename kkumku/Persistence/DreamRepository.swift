@@ -154,12 +154,20 @@ final class DreamRepository {
         return dreamEntity
     }
     
+    /**
+     꿈 엔티티를 모두 조회한다.
+     numberOfItems를 음수로 지정하면 모든 데이터를 읽어온다.
+     */
     func fetchAll(sortBy: AnyKeyPath = \DreamEntity.endAt, ascending: Bool = false, numberOfItems: Int = 10, page: Int = 1) -> [Dream] {
         let result = withContext { context -> [Dream] in
             let fetchRequest = DreamEntity.fetchRequest()
-            fetchRequest.fetchLimit = numberOfItems
-            fetchRequest.fetchOffset = numberOfItems * (page - 1)
+            
+            if numberOfItems >= 0 {
+                fetchRequest.fetchLimit = numberOfItems
+                fetchRequest.fetchOffset = numberOfItems * (page - 1)
+            }
             fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \DreamEntity.endAt, ascending: ascending)]
+
             let dreams = try context.fetch(fetchRequest)
             
             return dreams.map { dreamEntity in

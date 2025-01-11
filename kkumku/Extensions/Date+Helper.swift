@@ -39,4 +39,25 @@ extension Date {
         
         return calendar.date(byAdding: .day, value: -1, to: firstDayOfNextMonth)
     }
+    
+    static func fromHourAndMinute(hour: Int, minute: Int) -> Date? {
+        let calendar = Calendar.current
+        
+        var components = calendar.dateComponents([.year, .month, .day], from: Date.now)
+        components.hour = hour
+        components.minute = minute
+        components.second = 0
+        
+        return calendar.date(from: components)
+    }
+    
+    func toISOString() -> String {
+        let formatter = ISO8601DateFormatter()
+        return formatter.string(from: self)
+    }
+    
+    static func fromISOString(isoString: String) -> Date? {
+        let formatter = ISO8601DateFormatter()
+        return formatter.date(from: isoString)
+    }
 }

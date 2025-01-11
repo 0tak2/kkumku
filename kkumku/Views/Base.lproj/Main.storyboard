@@ -27,7 +27,7 @@
                         <segue destination="WSS-4O-YL0" kind="relationship" relationship="viewControllers" id="rse-Y9-iMl"/>
                         <segue destination="xYd-jT-eEI" kind="relationship" relationship="viewControllers" id="IFJ-Oo-a2L"/>
                         <segue destination="S13-ul-VyF" kind="relationship" relationship="viewControllers" id="HS9-WV-SZd"/>
-                        <segue destination="o69-BH-QBb" kind="relationship" relationship="viewControllers" id="pPA-Sy-B6N"/>
+                        <segue destination="p0C-gh-d29" kind="relationship" relationship="viewControllers" id="pPA-Sy-B6N"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5cP-mj-sui" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -375,14 +375,29 @@
                     <view key="view" contentMode="scaleToFill" id="yzx-QT-6YV">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6v9-WB-5Xo">
+                                <rect key="frame" x="0.0" y="103" width="393" height="749"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="eIx-fk-xJj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6v9-WB-5Xo" firstAttribute="leading" secondItem="eIx-fk-xJj" secondAttribute="leading" id="BbU-PK-tzV"/>
+                            <constraint firstAttribute="bottom" secondItem="6v9-WB-5Xo" secondAttribute="bottom" id="TFR-s7-u08"/>
+                            <constraint firstItem="6v9-WB-5Xo" firstAttribute="top" secondItem="eIx-fk-xJj" secondAttribute="top" id="a8E-U5-rgm"/>
+                            <constraint firstItem="eIx-fk-xJj" firstAttribute="trailing" secondItem="6v9-WB-5Xo" secondAttribute="trailing" id="ymv-Ug-ScW"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="gearshape.fill" catalog="system" id="4E9-8V-btE"/>
+                    <navigationItem key="navigationItem" id="RAR-iK-TgD"/>
+                    <connections>
+                        <outlet property="tableView" destination="6v9-WB-5Xo" id="7i1-BP-G3c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0E8-US-CwQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6641.9847328244268" y="778.87323943661977"/>
+            <point key="canvasLocation" x="7568.7022900763359" y="778.87323943661977"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IT1-Op-Ylt">
@@ -440,6 +455,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lve-fe-vt5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2356.4885496183206" y="778.87323943661977"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="RcL-BS-CAM">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="p0C-gh-d29" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="gearshape.fill" catalog="system" id="4E9-8V-btE"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RUJ-UT-xTh">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="o69-BH-QBb" kind="relationship" relationship="rootViewController" id="Fcr-Jb-7YE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lQ5-Ti-EBV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6641.9847328244268" y="778.87323943661977"/>
         </scene>
     </scenes>
     <resources>
