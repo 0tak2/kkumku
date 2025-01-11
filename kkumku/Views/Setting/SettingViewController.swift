@@ -18,6 +18,9 @@ class SettingViewController: UIViewController {
     let bedTimeKey = "bedTimeKey"
     let notificationEnabledKey = "notificationEnabled"
     
+    // MARK: - Data
+    let dreamRepository = DreamRepository.shared
+    
     private var wakingTime: Date {
         get {
             let wakingTimeRaw = UserDefaults.standard.string(forKey: wakingTimeKey)
@@ -97,8 +100,8 @@ class SettingViewController: UIViewController {
                 }),
             ],
             .backup: [
-                .button(label: "모든 꿈 백업하기 (JSON)", onTapped: {
-                    Log.info("Started to backup dreams in JSON")
+                .button(label: "모든 꿈 백업하기 (JSON)", onTapped: { [weak self] in
+                    self?.dumpToJson()
                 })
             ],
         ]
@@ -107,6 +110,28 @@ class SettingViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+    }
+    
+    private func dumpToJson() {
+        Log.info("Started to backup dreams in JSON")
+        
+        let data = dreamRepository.fetchAll(numberOfItems: -1)
+        let encodableEntities = data.map { DreamEncodable(from: $0) }
+        
+        do {
+            let encodedData = try JSONEncoder().encode(encodableEntities)
+            if let jsonOutput = String(data: encodedData, encoding: .utf8) {
+                let shareObject = [jsonOutput]
+                
+                let activityViewController = UIActivityViewController(activityItems : shareObject, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view
+
+                self.present(activityViewController, animated: true)
+            }
+        } catch {
+            let alert = UIAlertController(title: "백업 실패", message: "데이터를 인코딩하는 중 문제가 발생했습니다.", preferredStyle: .alert)
+            present(alert, animated: true)
+        }
     }
     
     enum Section: Int, CaseIterable {
