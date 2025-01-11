@@ -221,6 +221,7 @@ extension SettingViewController: UITableViewDelegate {
         let item = items[indexPath.item]
         if case let .button(_, onTapped) = item {
             onTapped()
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 }
