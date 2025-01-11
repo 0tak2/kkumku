@@ -100,7 +100,7 @@ class SettingViewController: UIViewController {
                 }),
             ],
             .backup: [
-                .button(label: "모든 꿈 백업하기 (JSON)", onTapped: { [weak self] in
+                .button(label: "모든 꿈 내보내기 (JSON)", onTapped: { [weak self] in
                     self?.dumpToJson()
                 })
             ],
