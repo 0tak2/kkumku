@@ -8,15 +8,62 @@
 import UIKit
 
 class SettingViewController: UIViewController {
+    // MARK: - Table View
     @IBOutlet weak var tableView: UITableView!
-    
     private let cellReusableId = "SettingViewControllerTableViewCell"
-    
-    private var wakingTime = Date.now
-    private var bedTime = Date.now
-    private var notificationEnabled = false
-    
     private var settingItems: [Section: [Item]] = [:]
+    
+    // MARK: - Settings
+    let wakingTimeKey = "wakingTime"
+    let bedTimeKey = "bedTimeKey"
+    let notificationEnabledKey = "notificationEnabled"
+    
+    private var wakingTime: Date {
+        get {
+            let wakingTimeRaw = UserDefaults.standard.string(forKey: wakingTimeKey)
+            if let wakingTimeRaw = wakingTimeRaw {
+                return Date.fromISOString(isoString: wakingTimeRaw)!
+            } else {
+                let wakingTime = Date.fromHourAndMinute(hour: 22, minute: 00)!
+                UserDefaults.standard.set(wakingTime.toISOString(), forKey: wakingTimeKey)
+                return wakingTime
+            }
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue.toISOString(), forKey: wakingTimeKey)
+        }
+    }
+    
+    private var bedTime: Date {
+        get {
+            let bedTimeRaw = UserDefaults.standard.string(forKey: bedTimeKey)
+            if let bedTimeRaw = bedTimeRaw {
+                return Date.fromISOString(isoString: bedTimeRaw)!
+            } else {
+                let bedTime = Date.fromHourAndMinute(hour: 07, minute: 00)!
+                UserDefaults.standard.set(bedTime.toISOString(), forKey: bedTimeKey)
+                return bedTime
+            }
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue.toISOString(), forKey: bedTimeKey)
+        }
+    }
+    
+    private var notificationEnabled: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: notificationEnabledKey)
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue, forKey: notificationEnabledKey)
+        }
+    }
+    
+    // MARK: - Debug
+    let initUserDefaultsOnViewDidLoad: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +71,23 @@ class SettingViewController: UIViewController {
         navigationItem.title = "설정"
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        Log.debug("current wakingTime \(wakingTime)")
+        Log.debug("current bedTime \(bedTime)")
+        Log.debug("current notificationEnabled \(notificationEnabled)")
+        
+        if initUserDefaultsOnViewDidLoad {
+            Log.info("UserDefaults 초기화 (initUserDefaultsOnViewDidLoad=true)")
+            for key in UserDefaults.standard.dictionaryRepresentation().keys {
+                UserDefaults.standard.removeObject(forKey: key.description)
+            }
+        }
+        
         settingItems = [
             .time: [
                 .datePicker(label: "기상 시각", currentValue: wakingTime, onChange: { [weak self] date in
                     self?.wakingTime = date
                 }),
-                .datePicker(label: "취침 시각", currentValue: wakingTime, onChange: { [weak self] date in
+                .datePicker(label: "취침 시각", currentValue: bedTime, onChange: { [weak self] date in
                     self?.bedTime = date
                 }),
             ],
@@ -103,7 +161,7 @@ extension SettingViewController: UITableViewDataSource {
                 guard let select = action.sender as? UISwitch else { return }
                 onChange(select.isOn)
             }), for: .valueChanged)
-            cell.accessoryView = UISwitch()
+            cell.accessoryView = select
         }
         
         if case let .button(label, _) = item {
