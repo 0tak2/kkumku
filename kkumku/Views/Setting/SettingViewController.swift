@@ -14,59 +14,47 @@ class SettingViewController: UIViewController {
     private var settingItems: [Section: [Item]] = [:]
     
     // MARK: - Settings
-    let wakingTimeKey = "wakingTime"
-    let bedTimeKey = "bedTimeKey"
-    let notificationEnabledKey = "notificationEnabled"
+    let settings = UserSettings.shared
     
     // MARK: - Data
     let dreamRepository = DreamRepository.shared
     
     private var wakingTime: Date {
         get {
-            let wakingTimeRaw = UserDefaults.standard.string(forKey: wakingTimeKey)
-            if let wakingTimeRaw = wakingTimeRaw {
-                return Date.fromISOString(isoString: wakingTimeRaw)!
-            } else {
-                let wakingTime = Date.fromHourAndMinute(hour: 22, minute: 00)!
-                UserDefaults.standard.set(wakingTime.toISOString(), forKey: wakingTimeKey)
-                return wakingTime
-            }
+            let defaultWakingTime = Date.fromHourAndMinute(hour: 22, minute: 00)!.toISOString()
+            let wakingTimeRaw = settings.string(.wakingTime, or: defaultWakingTime)
+            return Date.fromISOString(isoString: wakingTimeRaw)!
         }
         
         set {
-            UserDefaults.standard.set(newValue.toISOString(), forKey: wakingTimeKey)
+            settings.set(newValue.toISOString(), for: .wakingTime)
         }
     }
     
     private var bedTime: Date {
         get {
-            let bedTimeRaw = UserDefaults.standard.string(forKey: bedTimeKey)
-            if let bedTimeRaw = bedTimeRaw {
-                return Date.fromISOString(isoString: bedTimeRaw)!
-            } else {
-                let bedTime = Date.fromHourAndMinute(hour: 07, minute: 00)!
-                UserDefaults.standard.set(bedTime.toISOString(), forKey: bedTimeKey)
-                return bedTime
-            }
+            let defaultBedTime = Date.fromHourAndMinute(hour: 07, minute: 00)!.toISOString()
+            let bedTimeRaw = settings.string(.bedTime, or: defaultBedTime)
+            return Date.fromISOString(isoString: bedTimeRaw)!
         }
         
         set {
-            UserDefaults.standard.set(newValue.toISOString(), forKey: bedTimeKey)
+            settings.set(newValue.toISOString(), for: .bedTime)
         }
     }
     
     private var notificationEnabled: Bool {
         get {
-            UserDefaults.standard.bool(forKey: notificationEnabledKey)
+            settings.bool(.notificationEnabled)
         }
         
         set {
-            UserDefaults.standard.set(newValue, forKey: notificationEnabledKey)
+            settings.set(newValue, for: .notificationEnabled)
         }
     }
     
     // MARK: - Debug
-    let initUserDefaultsOnViewDidLoad: Bool = false
+    let initUserDefaultsOnViewDidLoad: Bool = false // fixme: 커밋에 포함되지 않는 방식으로 토글할 수 있도록 개선
     
     override func viewDidLoad() {
         super.viewDidLoad()
