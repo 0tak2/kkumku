@@ -54,7 +54,19 @@ class SettingViewController: UIViewController {
     }
     
     // MARK: - Debug
-    let initUserDefaultsOnViewDidLoad: Bool = false // fixme: 커밋에 포함되지 않는 방식으로 토글할 수 있도록 개선
+    private let initUserDefaultsOnViewDidLoad: Bool = {
+        guard let filePath = Bundle.main.path(forResource: "Configs", ofType: "plist"),
+              let configDict = NSDictionary(contentsOfFile: filePath) else {
+            fatalError("Configs.plist를 불러오지 못했습니다")
+        }
+        
+        guard let logConfigDict = configDict.object(forKey: "Setting") as? NSDictionary,
+              let shouldInitUserDefaultsOnViewDidLoad = logConfigDict.object(forKey: "initUserDefaultsOnSettingViewDidLoad") as? Bool else {
+            fatalError("Configs.plist / Log / LogWithPrint 설정을 불러오지 못했습니다.")
+        }
+        
+       return shouldInitUserDefaultsOnViewDidLoad
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
