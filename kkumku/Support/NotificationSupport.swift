@@ -59,4 +59,8 @@ final class NotificationSupport {
     func removeAll() {
         center.removeAllPendingNotificationRequests()
     }
+    
+    func getAllRequest(then completionHandler: @escaping ([UNNotificationRequest]) -> Void) {
+        center.getPendingNotificationRequests(completionHandler: completionHandler)
+    }
 }

@@ -140,6 +140,48 @@ class SettingViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appBecameActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        checkNotificationAndUpdateUI()
+    }
+    
+    @objc private func appBecameActive() {
+        checkNotificationAndUpdateUI()
+    }
+    
+    private func checkNotificationAndUpdateUI() {
+        if notificationEnabled {
+            notification.getAllRequest { [weak self] requests in
+                DispatchQueue.main.async {
+                    if requests.isEmpty {
+                        self?.notificationEnabled = false
+                        self?.tableView.reloadData()
+                    }
+                }
+            }
+            
+            Task {
+                do {
+                    try await checkNotificationAuthorizationAndUpdateUI()
+                } catch let error as NSError {
+                    Log.error("알림 권한을 체크하던 중 예상할 수 없었던 오류가 발생했습니다. \(error.domain) \(error.userInfo)")
+                }
+            }
+        }
+    }
+    
+    @MainActor
+    private func checkNotificationAuthorizationAndUpdateUI() async throws {
+        let isAuthorized = try await notification.isAuthorized()
+        if !isAuthorized {
+            notificationEnabled = false
+            tableView.reloadData()
+        }
     }
     
     private func dumpToJson() {
