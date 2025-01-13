@@ -19,6 +19,9 @@ class SettingViewController: UIViewController {
     // MARK: - Data
     let dreamRepository = DreamRepository.shared
     
+    // MARK: - Notification
+    let notification = NotificationSupport.shared
+    
     private var wakingTime: Date {
         get {
             let defaultWakingTime = Date.fromHourAndMinute(hour: 22, minute: 00)!.toISOString()
@@ -65,7 +68,7 @@ class SettingViewController: UIViewController {
             fatalError("Configs.plist / Log / LogWithPrint 설정을 불러오지 못했습니다.")
         }
         
-       return shouldInitUserDefaultsOnViewDidLoad
+        return shouldInitUserDefaultsOnViewDidLoad
     }()
     
     override func viewDidLoad() {
@@ -89,6 +92,19 @@ class SettingViewController: UIViewController {
             .time: [
                 .datePicker(label: "기상 시각", currentValue: wakingTime, onChange: { [weak self] date in
                     self?.wakingTime = date
+                    
+                    if let notificationEnabled = self?.notificationEnabled,
+                        notificationEnabled {
+                        
+                        Log.debug("notificationEnabled \(notificationEnabled)")
+                        
+                        let wakingTimeHourAndMinute = date.toHourAndMinute()
+                        let (hour, minute) = (wakingTimeHourAndMinute[0], wakingTimeHourAndMinute[1])
+                        
+                        Task {
+                            self?.registerDailyNotification(hour: hour, minute: minute)
+                        }
+                    }
                 }),
                 .datePicker(label: "취침 시각", currentValue: bedTime, onChange: { [weak self] date in
                     self?.bedTime = date
@@ -97,6 +113,21 @@ class SettingViewController: UIViewController {
             .notification: [
                 .select(label: "알림", currentValue: notificationEnabled, onChange: { [weak self] isOn in
                     self?.notificationEnabled = isOn
+                    
+                    if !isOn {
+                        self?.notification.removeAll()
+                        Log.info("알림 요청을 잘 해제했습니다.")
+                        return true
+                    }
+                    
+                    guard let wakingTimeHourAndMinute = self?.wakingTime.toHourAndMinute() else { return false }
+                    let (hour, minute) = (wakingTimeHourAndMinute[0], wakingTimeHourAndMinute[1])
+                    
+                    if let task = self?.registerDailyNotification(hour: hour, minute: minute) {
+                        return await task.value
+                    } else {
+                        return false
+                    }
                 }),
             ],
             .backup: [
@@ -110,6 +141,66 @@ class SettingViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appBecameActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        checkNotificationAndUpdateUI()
+    }
+    
+    @objc private func appBecameActive() {
+        checkNotificationAndUpdateUI()
+    }
+    
+    private func checkNotificationAndUpdateUI() {
+        if notificationEnabled {
+            notification.getAllRequest { [weak self] requests in
+                DispatchQueue.main.async {
+                    if requests.isEmpty {
+                        self?.notificationEnabled = false
+                        self?.tableView.reloadData()
+                    }
+                }
+            }
+            
+            Task {
+                do {
+                    try await checkNotificationAuthorizationAndUpdateUI()
+                } catch let error as NSError {
+                    Log.error("알림 권한을 체크하던 중 예상할 수 없었던 오류가 발생했습니다. \(error.domain) \(error.userInfo)")
+                }
+            }
+        }
+    }
+    
+    @MainActor
+    private func checkNotificationAuthorizationAndUpdateUI() async throws {
+        let isAuthorized = try await notification.isAuthorized()
+        if !isAuthorized {
+            notificationEnabled = false
+            tableView.reloadData()
+        }
+    }
+    
+    private func registerDailyNotification(hour: Int, minute: Int) -> Task<Bool, Never> {
+        Task {
+            do {
+                notification.removeAll()
+                try await self.notification.registerDailyNotification(hour: hour, minute: minute, title: "이번 꿈은 어떠셨나요?", body: "좋은 꿈 꾸셨나요? 꿈을 꾸셨다면 지금, 기억날 떄 기록해주세요")
+                Log.info("알림을 잘 등록했습니다. hour \(hour) minute \(minute)")
+                return true
+            } catch let error as NSError {
+                Log.error("알림을 등록하는 중 문제가 발생했습니다 error \(error.domain) \(error.userInfo)")
+                self.notification.removeAll()
+                let alert = UIAlertController(title: "알림 기능을 사용할 수 없어요", message: "\"설정 → 앱 → 꿈꾸\"에서 알림 허용이 활성화되어 있는지 확인해주세요", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "확인", style: .default))
+                self.present(alert, animated: true)
+                return false
+            }
+        }
     }
     
     private func dumpToJson() {
@@ -125,7 +216,7 @@ class SettingViewController: UIViewController {
                 
                 let activityViewController = UIActivityViewController(activityItems : shareObject, applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = self.view
-
+                
                 self.present(activityViewController, animated: true)
             }
         } catch {
@@ -142,7 +233,7 @@ class SettingViewController: UIViewController {
     
     enum Item {
         case datePicker(label: String, currentValue: Date, onChange: (Date) -> Void)
-        case select(label: String, currentValue: Bool, onChange: (Bool) -> Void)
+        case select(label: String, currentValue: Bool, onChange: (Bool) async -> Bool) // onChange: false를 반환하면 이전 값으로 롤백
         case button(label: String, onTapped: () -> Void)
     }
 }
@@ -184,13 +275,20 @@ extension SettingViewController: UITableViewDataSource {
             select.isOn = currentValue
             select.addAction(UIAction(handler: { action in
                 guard let select = action.sender as? UISwitch else { return }
-                onChange(select.isOn)
+                
+                Task {
+                    let rollback = !(await onChange(select.isOn))
+                    if rollback {
+                        select.isOn.toggle()
+                    }
+                }
             }), for: .valueChanged)
             cell.accessoryView = select
         }
         
         if case let .button(label, _) = item {
             content.text = label
+            cell.accessoryView = nil // 재사용될 때 이전에 할당해뒀던 악세서리 뷰를 해제/
         }
         
         cell.contentConfiguration = content
