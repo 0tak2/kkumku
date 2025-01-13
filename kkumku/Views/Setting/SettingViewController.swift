@@ -227,6 +227,7 @@ extension SettingViewController: UITableViewDataSource {
         
         if case let .button(label, _) = item {
             content.text = label
+            cell.accessoryView = nil // 재사용될 때 이전에 할당해뒀던 악세서리 뷰를 해제/
         }
         
         cell.contentConfiguration = content
