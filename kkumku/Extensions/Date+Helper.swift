@@ -51,6 +51,19 @@ extension Date {
         return calendar.date(from: components)
     }
     
+    /**
+     Date 객체로부터 시간과 분을 반환한다.
+     @return Array<Int> [시간, 분]
+        시간과 분을 객체로부터 알아낼 수 없으면, [0, 0]을 반환한다.
+     */
+    func toHourAndMinute() -> [Int] {
+        let calendar = Calendar.current
+        
+        var components = calendar.dateComponents([.hour, .minute], from: self)
+        
+        return [components.hour ?? 0, components.minute ?? 0]
+    }
+    
     func toISOString() -> String {
         let formatter = ISO8601DateFormatter()
         return formatter.string(from: self)
