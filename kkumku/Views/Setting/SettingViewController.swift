@@ -117,6 +117,7 @@ class SettingViewController: UIViewController {
                             return true
                         } catch let error as NSError {
                             Log.error("알림을 등록하는 중 문제가 발생했습니다 error \(error.domain) \(error.userInfo)")
+                            self?.notification.removeAll()
                             let alert = UIAlertController(title: "알림 기능을 사용할 수 없어요", message: "\"설정 → 앱 → 꿈꾸\"에서 알림 허용이 활성화되어 있는지 확인해주세요", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "확인", style: .default))
                             self?.present(alert, animated: true)
