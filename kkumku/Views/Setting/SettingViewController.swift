@@ -92,6 +92,19 @@ class SettingViewController: UIViewController {
             .time: [
                 .datePicker(label: "기상 시각", currentValue: wakingTime, onChange: { [weak self] date in
                     self?.wakingTime = date
+                    
+                    if let notificationEnabled = self?.notificationEnabled,
+                        notificationEnabled {
+                        
+                        Log.debug("notificationEnabled \(notificationEnabled)")
+                        
+                        let wakingTimeHourAndMinute = date.toHourAndMinute()
+                        let (hour, minute) = (wakingTimeHourAndMinute[0], wakingTimeHourAndMinute[1])
+                        
+                        Task {
+                            self?.registerDailyNotification(hour: hour, minute: minute)
+                        }
+                    }
                 }),
                 .datePicker(label: "취침 시각", currentValue: bedTime, onChange: { [weak self] date in
                     self?.bedTime = date
@@ -110,23 +123,11 @@ class SettingViewController: UIViewController {
                     guard let wakingTimeHourAndMinute = self?.wakingTime.toHourAndMinute() else { return false }
                     let (hour, minute) = (wakingTimeHourAndMinute[0], wakingTimeHourAndMinute[1])
                     
-                    let registerNotficationTask = Task {
-                        do {
-                            try await self?.notification.registerDailyNotification(hour: hour, minute: minute, title: "이번 꿈은 어떠셨나요?", body: "좋은 꿈 꾸셨나요? 꿈을 꾸셨다면 지금, 기억날 떄 기록해주세요")
-                            Log.info("알림을 잘 등록했습니다. hour \(hour) minute \(minute)")
-                            return true
-                        } catch let error as NSError {
-                            Log.error("알림을 등록하는 중 문제가 발생했습니다 error \(error.domain) \(error.userInfo)")
-                            self?.notification.removeAll()
-                            let alert = UIAlertController(title: "알림 기능을 사용할 수 없어요", message: "\"설정 → 앱 → 꿈꾸\"에서 알림 허용이 활성화되어 있는지 확인해주세요", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "확인", style: .default))
-                            self?.present(alert, animated: true)
-                            return false
-                        }
+                    if let task = self?.registerDailyNotification(hour: hour, minute: minute) {
+                        return await task.value
+                    } else {
+                        return false
                     }
-                    
-                    let taskResult = await registerNotficationTask.result
-                    return taskResult.get()
                 }),
             ],
             .backup: [
@@ -181,6 +182,24 @@ class SettingViewController: UIViewController {
         if !isAuthorized {
             notificationEnabled = false
             tableView.reloadData()
+        }
+    }
+    
+    private func registerDailyNotification(hour: Int, minute: Int) -> Task<Bool, Never> {
+        Task {
+            do {
+                notification.removeAll()
+                try await self.notification.registerDailyNotification(hour: hour, minute: minute, title: "이번 꿈은 어떠셨나요?", body: "좋은 꿈 꾸셨나요? 꿈을 꾸셨다면 지금, 기억날 떄 기록해주세요")
+                Log.info("알림을 잘 등록했습니다. hour \(hour) minute \(minute)")
+                return true
+            } catch let error as NSError {
+                Log.error("알림을 등록하는 중 문제가 발생했습니다 error \(error.domain) \(error.userInfo)")
+                self.notification.removeAll()
+                let alert = UIAlertController(title: "알림 기능을 사용할 수 없어요", message: "\"설정 → 앱 → 꿈꾸\"에서 알림 허용이 활성화되어 있는지 확인해주세요", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "확인", style: .default))
+                self.present(alert, animated: true)
+                return false
+            }
         }
     }
     
