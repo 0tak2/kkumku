@@ -24,7 +24,7 @@ class SettingViewController: UIViewController {
     
     private var wakingTime: Date {
         get {
-            let defaultWakingTime = Date.fromHourAndMinute(hour: 22, minute: 00)!.toISOString()
+            let defaultWakingTime = Date.fromHourAndMinute(hour: 07, minute: 00)!.toISOString()
             let wakingTimeRaw = settings.string(.wakingTime, or: defaultWakingTime)
             return Date.fromISOString(isoString: wakingTimeRaw)!
         }
@@ -36,7 +36,7 @@ class SettingViewController: UIViewController {
     
     private var bedTime: Date {
         get {
-            let defaultBedTime = Date.fromHourAndMinute(hour: 07, minute: 00)!.toISOString()
+            let defaultBedTime = Date.fromHourAndMinute(hour: 22, minute: 00)!.toISOString()
             let bedTimeRaw = settings.string(.bedTime, or: defaultBedTime)
             return Date.fromISOString(isoString: bedTimeRaw)!
         }
@@ -90,6 +90,9 @@ class SettingViewController: UIViewController {
         
         settingItems = [
             .time: [
+                .datePicker(label: "취침 시각", currentValue: bedTime, onChange: { [weak self] date in
+                    self?.bedTime = date
+                }),
                 .datePicker(label: "기상 시각", currentValue: wakingTime, onChange: { [weak self] date in
                     self?.wakingTime = date
                     
@@ -105,9 +108,6 @@ class SettingViewController: UIViewController {
                             self?.registerDailyNotification(hour: hour, minute: minute)
                         }
                     }
-                }),
-                .datePicker(label: "취침 시각", currentValue: bedTime, onChange: { [weak self] date in
-                    self?.bedTime = date
                 }),
             ],
             .notification: [
