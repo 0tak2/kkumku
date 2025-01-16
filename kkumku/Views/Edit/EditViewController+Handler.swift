@@ -70,11 +70,7 @@ extension EditViewController {
         isEditStarted.toggle()
         
         if isInsertingNewDream {
-            let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
-            guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
-                    as? DetailDreamViewController else { return }
-            detailViewController.dream = savedDream
-            navigationController?.pushViewController(detailViewController, animated: true)
+            tabBarController?.selectedIndex = 2 // go to Explore View
         } else {
             navigationController?.popViewController(animated: true)
             
