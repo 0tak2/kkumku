@@ -59,7 +59,7 @@ extension Date {
     func toHourAndMinute() -> [Int] {
         let calendar = Calendar.current
         
-        var components = calendar.dateComponents([.hour, .minute], from: self)
+        let components = calendar.dateComponents([.hour, .minute], from: self)
         
         return [components.hour ?? 0, components.minute ?? 0]
     }
