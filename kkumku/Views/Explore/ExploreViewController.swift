@@ -47,4 +47,12 @@ class ExploreViewController: UIViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: "SearchDreamViewController")
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func presentDetailView(for dream: Dream, animated: Bool) {
+        let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
+        guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
+                as? DetailDreamViewController else { return }
+        detailViewController.dream = dream
+        navigationController?.pushViewController(detailViewController, animated: animated)
+    }
 }

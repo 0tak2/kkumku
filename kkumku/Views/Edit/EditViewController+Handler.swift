@@ -65,12 +65,27 @@ extension EditViewController {
         guard isEditStarted else { return }
         
         let savedDream = dreamRepository.save(workingDream)
-        workingDream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
-        tableView.reloadData()
-        isEditStarted.toggle()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            // 다른 뷰로 이동 완료된 후에 초기화
+            // 탭바 스위칭이 된다고 해서 self가 deinit 되지는 않음
+            // see: https://stackoverflow.com/a/52121549
+            self?.workingDream = Dream()
+            self?.tableView.reloadData()
+            self?.isEditStarted.toggle()
+        }
         
         if isInsertingNewDream {
-            tabBarController?.selectedIndex = 2 // go to Explore View
+            let exploreViewIndex = 2
+            
+            if let savedDream = savedDream,
+               let tabBarController = tabBarController,
+               let viewControllers = tabBarController.viewControllers,
+               let exploreNavViewController = viewControllers[exploreViewIndex] as? UINavigationController,
+               let exploreViewController = exploreNavViewController.viewControllers.first as? ExploreViewController {
+                exploreNavViewController.popToRootViewController(animated: false) // 스택의 모든 뷰 비우기
+                tabBarController.selectedIndex = exploreViewIndex // 탭바 스위칭
+                exploreViewController.presentDetailView(for: savedDream, animated: false) // 여기서 DetailView 띄우기
+            }
         } else {
             navigationController?.popViewController(animated: true)
             
