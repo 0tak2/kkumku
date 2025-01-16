@@ -196,10 +196,6 @@ extension ExploreViewController: UICollectionViewDelegate {
                 }
             }
         
-        let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
-        guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
-                as? DetailDreamViewController else { return }
-        detailViewController.dream = loadedDreams[index]
-        navigationController?.pushViewController(detailViewController, animated: true)
+        presentDetailView(for: loadedDreams[index], animated: true)
     }
 }
