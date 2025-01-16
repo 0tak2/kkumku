@@ -65,9 +65,14 @@ extension EditViewController {
         guard isEditStarted else { return }
         
         let savedDream = dreamRepository.save(workingDream)
-        workingDream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
-        tableView.reloadData()
-        isEditStarted.toggle()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            // 다른 뷰로 이동 완료된 후에 초기화
+            // 탭바 스위칭이 된다고 해서 self가 deinit 되지는 않음
+            // see: https://stackoverflow.com/a/52121549
+            self?.workingDream = Dream()
+            self?.tableView.reloadData()
+            self?.isEditStarted.toggle()
+        }
         
         if isInsertingNewDream {
             let exploreViewIndex = 2
