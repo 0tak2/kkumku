@@ -70,7 +70,17 @@ extension EditViewController {
         isEditStarted.toggle()
         
         if isInsertingNewDream {
-            tabBarController?.selectedIndex = 2 // go to Explore View
+            let exploreViewIndex = 2
+            
+            if let savedDream = savedDream,
+               let tabBarController = tabBarController,
+               let viewControllers = tabBarController.viewControllers,
+               let exploreNavViewController = viewControllers[exploreViewIndex] as? UINavigationController,
+               let exploreViewController = exploreNavViewController.viewControllers.first as? ExploreViewController {
+                exploreNavViewController.popToRootViewController(animated: false) // 스택의 모든 뷰 비우기
+                tabBarController.selectedIndex = exploreViewIndex // 탭바 스위칭
+                exploreViewController.presentDetailView(for: savedDream, animated: false) // 여기서 DetailView 띄우기
+            }
         } else {
             navigationController?.popViewController(animated: true)
             
