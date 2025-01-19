@@ -175,7 +175,6 @@ extension SearchDreamViewController: UICollectionViewDelegate {
         }
         
         let section = currentSections[indexPath.section]
-980408
         
         if section == .allTags {
             let tag = loadedTags[indexPath.item]
@@ -208,5 +207,10 @@ extension SearchDreamViewController: UICollectionViewDelegate {
         }
         
         return true
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 스크롤되면 SearchBar에 대한 포커스를 없앤다
+        navigationItem.searchController?.searchBar.resignFirstResponder()
     }
 }
