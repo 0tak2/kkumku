@@ -47,6 +47,8 @@ struct Dream: Hashable {
         self.memo = memo ?? ""
         self.dreamClass = dreamClass ?? .auspicious
         self.isLucid = isLucid ?? false
+        self.tags = tags
+        self.custom = custom
     }
     
     /**
