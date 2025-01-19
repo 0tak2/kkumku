@@ -12,6 +12,7 @@ class ExploreViewController: UIViewController {
     
     var dataSource: DataSource!
     var sortButtonCellRegistration: UICollectionView.CellRegistration<SortButtonCollectionViewCell, Item>!
+    var infoLabelCellRegistration: UICollectionView.CellRegistration<UICollectionViewListCell, Item>!
     
     let dreamRepository = DreamRepository.shared
     
