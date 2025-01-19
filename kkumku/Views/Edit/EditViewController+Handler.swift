@@ -59,12 +59,17 @@ extension EditViewController {
         Log.debug("onChangeLucidOrNot: \(workingDream)")
     }
     
-    @objc func onTappedSave() {
-        Log.debug("onTappedSave: \(workingDream)")
-        
+    func saveWorkingDream() {
         guard isEditStarted else { return }
         
+        // MARK: Save a dream to Core Data
         let savedDream = dreamRepository.save(workingDream)
+        guard let savedDream = savedDream else {
+            Log.info("꿈 저장을 시도했으나 저장에 실패한 것 같습니다. workingDream \(workingDream)")
+            return
+        }
+        
+        // MARK: Update UI
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             // 다른 뷰로 이동 완료된 후에 초기화
             // 탭바 스위칭이 된다고 해서 self가 deinit 되지는 않음
@@ -77,8 +82,7 @@ extension EditViewController {
         if isInsertingNewDream {
             let exploreViewIndex = 2
             
-            if let savedDream = savedDream,
-               let tabBarController = tabBarController,
+            if let tabBarController = tabBarController,
                let viewControllers = tabBarController.viewControllers,
                let exploreNavViewController = viewControllers[exploreViewIndex] as? UINavigationController,
                let exploreViewController = exploreNavViewController.viewControllers.first as? ExploreViewController {
@@ -96,5 +100,10 @@ extension EditViewController {
             detailViewController.dream = savedDream
             detailViewController.loadData()
         }
+    }
+    
+    @objc func onTappedSave() {
+        Log.debug("onTappedSave: \(workingDream)")
+        saveWorkingDream()
     }
 }
