@@ -112,6 +112,8 @@ final class DreamRepository {
             }
         }
         
+        try deleteNoReferencedTag(context: context)
+        
         try context.save()
         return originalEntity
     }
@@ -298,6 +300,7 @@ final class DreamRepository {
             
             if let entity = fetchResult.first {
                 context.delete(entity)
+                try deleteNoReferencedTag(context: context)
                 try context.save()
             }
         } onFailure: { context, error in
@@ -325,5 +328,31 @@ final class DreamRepository {
     
     private convenience init() {
         self.init(coreData: CoreDataStack.shared)
+    }
+    
+    // FIXME: need to optimize
+    func deleteNoReferencedTag(context: NSManagedObjectContext) throws {
+        // MARK: inspect invalid connections
+        let connectionEntityFetchRequest = DreamAndTagEntity.fetchRequest()
+        connectionEntityFetchRequest.predicate = NSCompoundPredicate(type: .or, subpredicates: [
+            NSPredicate(format: "dream == nil "),
+            NSPredicate(format: "tag == nil "),
+        ])
+        
+        let connectionEntityFetchResult: [DreamAndTagEntity] = try context.fetch(connectionEntityFetchRequest)
+        connectionEntityFetchResult.forEach { entity in
+            Log.debug("found invalid connection - id \(String(describing: entity.id)) dream \(String(describing: entity.dream)) tag \(String(describing: entity.tag)) ")
+            context.delete(entity)
+        }
+        
+        // MARK: inspect not referenced tags
+        let tagEntityFetchRequest = DreamTagEntity.fetchRequest()
+        tagEntityFetchRequest.predicate = NSPredicate(format: "tagAndDreams.@count == %d", 0)
+        
+        let tagEntitiyFetchResult: [DreamTagEntity] = try context.fetch(tagEntityFetchRequest)
+        tagEntitiyFetchResult.forEach { entity in
+            Log.debug("found not referenced tag - id \(String(describing: entity.id)) tag \(String(describing: entity.tag))")
+            context.delete(entity)
+        }
     }
 }
