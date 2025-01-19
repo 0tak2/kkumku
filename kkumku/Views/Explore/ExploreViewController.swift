@@ -35,11 +35,11 @@ class ExploreViewController: UIViewController {
         loadCurrentData()
         collectionView.collectionViewLayout = setLayout()
         collectionView.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        // 데이터가 추가되었을 수 있으므로 강제로 업데이트 해준다
-        reloadData()
+        
+        // MARK: - NotificationCenter
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamAdded, object: nil)
+        nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamEdited, object: nil)
     }
     
     @objc func searchButtonTapped() {
@@ -54,5 +54,10 @@ class ExploreViewController: UIViewController {
                 as? DetailDreamViewController else { return }
         detailViewController.dream = dream
         navigationController?.pushViewController(detailViewController, animated: animated)
+    }
+    
+    @objc private func onDataSourceUpdated(_ notification: Notification) {
+        Log.debug("ExploreViewController onDataSourceUpdated - notification name \(notification.name) - userInfo \(String(describing: notification.userInfo))")
+        reloadData()
     }
 }
