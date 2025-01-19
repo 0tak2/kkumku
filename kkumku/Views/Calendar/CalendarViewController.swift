@@ -62,6 +62,12 @@ class CalendarViewController: UIViewController {
         initCollectionView()
         loadDreamsOfCurrentMonth()
         displayDreams(of: Date.now)
+        
+        // MARK: - NotificationCenter
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamAdded, object: nil)
+        nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamEdited, object: nil)
+        nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamDeleted, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,6 +126,12 @@ class CalendarViewController: UIViewController {
         dateComponents.nanosecond = 0
         
         return Calendar.current.date(from: dateComponents)
+    }
+    
+    @objc private func onDataSourceUpdated(_ notification: Notification) {
+        Log.debug("CalendarViewController onDataSourceUpdated - notification name \(notification.name) - userInfo \(String(describing: notification.userInfo))")
+        loadDreamsOfCurrentMonth()
+        calendarView.reloadData()
     }
 }
 

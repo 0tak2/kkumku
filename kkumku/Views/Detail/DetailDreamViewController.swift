@@ -62,6 +62,17 @@ class DetailDreamViewController: UIViewController {
         
         isLucidLabel.isHidden = !dream.isLucid
     }
+    
+    private func deleteDream(by dreamId: UUID) {
+        // MARK: Delete the dream from CoreData
+        dreamRepository.delete(by: dreamId)
+        
+        // MARK: Publish event via NotificationCenter
+        let nc = NotificationCenter.default
+        nc.post(name: .dreamDeleted, object: self, userInfo: [
+            "targetId": dreamId
+        ])
+    }
 }
 
 extension DetailDreamViewController {
@@ -80,7 +91,7 @@ extension DetailDreamViewController {
         let no = UIAlertAction(title: "취소", style: .default)
         let yes = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
             if let id = self?.dream.id {
-                self?.dreamRepository.delete(by: id)
+                self?.deleteDream(by: id)
             }
             self?.navigationController?.popViewController(animated: true)
         }
