@@ -14,9 +14,13 @@ extension SearchDreamViewController: UISearchResultsUpdating {
             return
         }
         
-        let searchResult = dreamRepository.findAll(containing: query)
-        loadedDreams = searchResult
-        applySnapshot(of: loadedDreams)
+        searchActionDebouncer.debounce { [weak self] in
+            guard let self = self else { return }
+            
+            let searchResult = self.dreamRepository.findAll(containing: query)
+            loadedDreams = searchResult
+            applySnapshot(of: loadedDreams)
+        }
     }
 }
 
