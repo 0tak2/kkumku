@@ -40,6 +40,7 @@ class ExploreViewController: UIViewController {
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamAdded, object: nil)
         nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamEdited, object: nil)
+        nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamDeleted, object: nil)
     }
     
     @objc func searchButtonTapped() {

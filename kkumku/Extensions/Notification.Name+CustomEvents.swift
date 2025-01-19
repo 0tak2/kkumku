@@ -15,4 +15,8 @@ extension Notification.Name {
     static var dreamEdited: Notification.Name {
         return .init(rawValue: "com.youngtaek.kkumku.events.dreamEdited")
     }
+    
+    static var dreamDeleted: Notification.Name {
+        return .init(rawValue: "com.youngtaek.kkumku.events.dreamDeleted")
+    }
 }
