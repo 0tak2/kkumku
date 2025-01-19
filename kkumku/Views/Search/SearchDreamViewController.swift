@@ -20,6 +20,8 @@ class SearchDreamViewController: UIViewController {
     var loadedDreams: [Dream] = []
     var loadedTags: [String] = []
     
+    let searchActionDebouncer = Utils.Debouncer(seconds: 0.5)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
