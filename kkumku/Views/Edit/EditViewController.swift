@@ -41,6 +41,15 @@ class EditViewController: UIViewController {
         tableView.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if isInsertingNewDream {
+            workingDream.endAt = Date.now
+            tableView.reloadData()
+        }
+    }
+    
     @objc func viewTapped() {
         view.endEditing(true)
     }
