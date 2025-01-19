@@ -69,6 +69,14 @@ extension EditViewController {
             return
         }
         
+        // MARK: Publish added/edited dream event via NotificationCenter
+        let nc = NotificationCenter.default
+        let notificationKey = isInsertingNewDream ? Notification.Name.dreamAdded
+                                                  : Notification.Name.dreamEdited
+        nc.post(name: notificationKey, object: self, userInfo: [
+            "targetDream": savedDream
+        ])
+        
         // MARK: Update UI
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             // 다른 뷰로 이동 완료된 후에 초기화
