@@ -45,6 +45,7 @@ class EditViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if isInsertingNewDream {
+            workingDream.setStartDateWithSetting()
             workingDream.endAt = Date.now
             tableView.reloadData()
         }
