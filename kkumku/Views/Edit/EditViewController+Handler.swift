@@ -82,7 +82,8 @@ extension EditViewController {
             // 다른 뷰로 이동 완료된 후에 초기화
             // 탭바 스위칭이 된다고 해서 self가 deinit 되지는 않음
             // see: https://stackoverflow.com/a/52121549
-            self?.workingDream = Dream()
+            self?.workingDream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
+            self?.workingDream.setStartDateWithSetting()
             self?.tableView.reloadData()
             self?.isEditStarted.toggle()
         }
