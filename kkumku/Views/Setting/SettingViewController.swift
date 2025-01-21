@@ -75,6 +75,7 @@ class SettingViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "설정"
+        navigationController?.navigationBar.tintColor = .primary
         navigationController?.navigationBar.prefersLargeTitles = true
         
         Log.debug("current wakingTime \(wakingTime)")

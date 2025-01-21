@@ -24,6 +24,7 @@ class DetailDreamViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "꿈"
+        navigationController?.navigationBar.tintColor = .primary
         
         // button handlers
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)

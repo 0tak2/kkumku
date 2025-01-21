@@ -28,6 +28,7 @@ class ExploreViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "모아보기"
+        navigationController?.navigationBar.tintColor = .primary
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchButtonTapped))
         
         registerCells()
