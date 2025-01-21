@@ -31,7 +31,7 @@ class CalendarViewController: UIViewController {
         calendarView.dataSource = self
         
         // appearance
-        calendarView.backgroundColor = .systemGray6
+        calendarView.backgroundColor = .black
         calendarView.appearance.headerTitleColor = .primary
         calendarView.appearance.headerTitleFont = .systemFont(ofSize: 16, weight: .semibold)
         calendarView.appearance.weekdayTextColor = .primary
