@@ -13,7 +13,7 @@ class CalendarViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var dataSource: DataSource!
-    var dreamCellRegistraion: UICollectionView.CellRegistration<UICollectionViewListCell, Item>!
+    var dreamCellRegistraion: UICollectionView.CellRegistration<CalendarDreamCollectionViewCell, Item>!
     var labelCellRegistraion: UICollectionView.CellRegistration<UICollectionViewListCell, Item>!
     
     let dreamRepository: DreamRepository = DreamRepository.shared
@@ -26,7 +26,6 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "꿈 달력"
-        navigationController?.navigationBar.prefersLargeTitles = true
         
         // MARK: - Calendar
         calendarView.delegate = self
@@ -77,6 +76,8 @@ class CalendarViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         updateToday()
         loadDreamsOfCurrentMonth()
         if let selectedDate = selectedDate {
