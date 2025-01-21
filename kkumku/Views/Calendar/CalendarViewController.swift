@@ -36,7 +36,7 @@ class CalendarViewController: UIViewController {
         calendarView.backgroundColor = .black
         calendarView.appearance.headerTitleColor = .primary
         calendarView.appearance.headerTitleFont = .systemFont(ofSize: 16, weight: .semibold)
-        calendarView.appearance.weekdayTextColor = .primary
+        calendarView.appearance.weekdayTextColor = .gray
         calendarView.appearance.weekdayFont = .systemFont(ofSize: 16, weight: .semibold)
         
         calendarView.appearance.titleDefaultColor = .white
@@ -45,6 +45,8 @@ class CalendarViewController: UIViewController {
         
         calendarView.appearance.subtitleDefaultColor = .lightGray
         calendarView.appearance.subtitleSelectionColor = .darkGray
+        
+        calendarView.appearance.todayColor = .systemYellow
         
         calendarView.appearance.headerMinimumDissolvedAlpha = 0.0
         
