@@ -8,7 +8,7 @@
 import UIKit
 
 class OnboardingSettingViewController: UIViewController {
-    private let tableView = UITableView()
+    private let tableView = UITableView(frame: .zero, style: .plain)
     let cellReusableId = "OnboardingSettingViewControllerTableViewCell"
     var settingItems: [Section: [Item]] = [:]
     
@@ -141,6 +141,7 @@ extension OnboardingSettingViewController {
         }), for: .touchUpInside)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
     }
     
     private func layout() {
