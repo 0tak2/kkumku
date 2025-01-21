@@ -29,4 +29,11 @@ extension Date {
         dateFormatter.dateFormat = "MM월 dd일 a hh시 mm분"
         return dateFormatter.string(from: self)
     }
+    
+    var localizedHourAndMinute: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "a hh시 mm분"
+        return dateFormatter.string(from: self)
+    }
 }

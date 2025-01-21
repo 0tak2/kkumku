@@ -32,28 +32,22 @@ extension CalendarViewController {
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(120))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(240))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 12
+        section.interGroupSpacing = 24
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         collectionView.collectionViewLayout = layout
     }
     
     private func registerCells() {
-        dreamCellRegistraion = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { cell, indexPath, item in
+        dreamCellRegistraion = UICollectionView.CellRegistration(handler: { cell, indexPath, item in
             if case let .dreamCell(dream) = item {
-                var content = cell.defaultContentConfiguration()
-                content.text = "\(dream.memo)"
-                content.textProperties.numberOfLines = 3
-                content.secondaryText = "\(dream.dreamClass.descriptionEmoji()) \(dream.startAt.localizedString) ~ \(dream.endAt.localizedStringNoYear)"
-
-                cell.contentConfiguration = content
-                cell.contentView.backgroundColor = .systemGray6
+                cell.configure(dream: dream)
             }
-        }
+        })
         
         labelCellRegistraion = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { cell, indexPath, item in
             if case let .labelCell(labelText) = item {
