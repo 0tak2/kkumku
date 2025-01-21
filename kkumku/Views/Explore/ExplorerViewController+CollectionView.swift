@@ -139,7 +139,7 @@ extension ExploreViewController {
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
                 
                 let section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 24
+                section.interGroupSpacing = 8
                 return section
             }
             
