@@ -46,6 +46,8 @@ class CalendarViewController: UIViewController {
         calendarView.appearance.subtitleDefaultColor = .lightGray
         calendarView.appearance.subtitleSelectionColor = .darkGray
         
+        calendarView.appearance.headerMinimumDissolvedAlpha = 0.0
+        
         // locale
         calendarView.locale = Locale(identifier: "ko_KR")
         calendarView.appearance.headerDateFormat = "YYYY년 MM월"
