@@ -256,14 +256,24 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="my6-Cy-4LA">
+                                                            <rect key="frame" x="0.0" y="299" width="393" height="1"/>
+                                                            <color key="backgroundColor" name="secondaryColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="Cv2-nY-Pqf"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="6CZ-SZ-XGJ" firstAttribute="leading" secondItem="9IN-rh-8qp" secondAttribute="leading" constant="8" id="0n5-oE-wJ6"/>
+                                                        <constraint firstItem="my6-Cy-4LA" firstAttribute="leading" secondItem="9IN-rh-8qp" secondAttribute="leading" id="4o9-hl-yh1"/>
                                                         <constraint firstItem="RCK-1b-kHK" firstAttribute="leading" secondItem="9IN-rh-8qp" secondAttribute="leading" constant="8" id="7dL-T4-zTK"/>
                                                         <constraint firstItem="6CZ-SZ-XGJ" firstAttribute="top" secondItem="9IN-rh-8qp" secondAttribute="top" constant="12" id="7lg-JA-fem"/>
                                                         <constraint firstItem="mQX-gR-hBH" firstAttribute="centerY" secondItem="6CZ-SZ-XGJ" secondAttribute="centerY" id="AGe-sj-k9B"/>
+                                                        <constraint firstAttribute="trailing" secondItem="my6-Cy-4LA" secondAttribute="trailing" id="CiN-3B-mY8"/>
                                                         <constraint firstAttribute="trailing" secondItem="Xwt-Iv-rhi" secondAttribute="trailing" constant="8" id="DVe-EA-qQx"/>
+                                                        <constraint firstAttribute="bottom" secondItem="my6-Cy-4LA" secondAttribute="bottom" id="UrE-PK-5LW"/>
                                                         <constraint firstAttribute="trailing" secondItem="mQX-gR-hBH" secondAttribute="trailing" constant="8" id="bGY-Er-DX4"/>
                                                         <constraint firstAttribute="bottom" secondItem="RCK-1b-kHK" secondAttribute="bottom" constant="12" id="uo4-Gq-9oo"/>
                                                         <constraint firstItem="Xwt-Iv-rhi" firstAttribute="leading" secondItem="9IN-rh-8qp" secondAttribute="leading" constant="8" id="xgo-Zp-fSW"/>
@@ -283,6 +293,7 @@
                                             <outlet property="dreamClassEmoji" destination="6CZ-SZ-XGJ" id="t38-Hw-MZP"/>
                                             <outlet property="dreamContentLabel" destination="Xwt-Iv-rhi" id="2MC-IN-z4R"/>
                                             <outlet property="dreamDateLabel" destination="mQX-gR-hBH" id="lum-bZ-Weh"/>
+                                            <outlet property="seperatorView" destination="my6-Cy-4LA" id="R7f-4R-JVl"/>
                                             <outlet property="tagStackView" destination="RCK-1b-kHK" id="0BD-FD-jLr"/>
                                             <outlet property="wrapperView" destination="9IN-rh-8qp" id="dhb-JH-zD2"/>
                                         </connections>
@@ -306,7 +317,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F6J-AH-gah" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5448.0916030534345" y="778.87323943661977"/>
+            <point key="canvasLocation" x="5446.5648854961828" y="778.87323943661977"/>
         </scene>
         <!--Calendar View Controller-->
         <scene sceneID="A2x-iF-eCf">
@@ -483,6 +494,9 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="primaryColor">
             <color red="1" green="0.94117647058823528" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondaryColor">
+            <color red="0.80784313725490198" green="0.87058823529411766" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
