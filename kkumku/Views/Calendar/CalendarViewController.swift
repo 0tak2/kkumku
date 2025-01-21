@@ -20,6 +20,8 @@ class CalendarViewController: UIViewController {
     var dreamsForDay: [Date: [Dream]] = [:]
     var selectedDate: Date?
     
+    let debouncer = Utils.Debouncer(seconds: 0.8)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -151,7 +153,7 @@ extension CalendarViewController: FSCalendarDelegate {
         loadDreamsOfCurrentMonth()
         calendar.reloadData()
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
+        debouncer.debounce { [weak self] in
             guard let calendar = self?.calendarView else { return }
             
             calendar.select(calendar.currentPage) // 이번 달 1일로 선택
