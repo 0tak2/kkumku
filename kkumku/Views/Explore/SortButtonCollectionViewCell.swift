@@ -11,10 +11,7 @@ class SortButtonCollectionViewCell: UICollectionViewCell {
     private let sortButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 12
-        button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.layer.borderWidth = 0.8
-        button.layer.borderColor = UIColor.white.cgColor
+        button.titleLabel?.font = .systemFont(ofSize: 16)
         return button
     }()
     

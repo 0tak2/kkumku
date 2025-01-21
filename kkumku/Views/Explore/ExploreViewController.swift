@@ -27,8 +27,8 @@ class ExploreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "모아보기"
+        navigationController?.navigationBar.tintColor = .primary
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchButtonTapped))
         
         registerCells()
@@ -42,6 +42,10 @@ class ExploreViewController: UIViewController {
         nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamAdded, object: nil)
         nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamEdited, object: nil)
         nc.addObserver(self, selector: #selector(onDataSourceUpdated), name: .dreamDeleted, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc func searchButtonTapped() {

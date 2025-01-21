@@ -20,6 +20,8 @@ class CalendarViewController: UIViewController {
     var dreamsForDay: [Date: [Dream]] = [:]
     var selectedDate: Date?
     
+    let debouncer = Utils.Debouncer(seconds: 0.8)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,10 +33,10 @@ class CalendarViewController: UIViewController {
         calendarView.dataSource = self
         
         // appearance
-        calendarView.backgroundColor = .systemGray6
+        calendarView.backgroundColor = .black
         calendarView.appearance.headerTitleColor = .primary
         calendarView.appearance.headerTitleFont = .systemFont(ofSize: 16, weight: .semibold)
-        calendarView.appearance.weekdayTextColor = .primary
+        calendarView.appearance.weekdayTextColor = .gray
         calendarView.appearance.weekdayFont = .systemFont(ofSize: 16, weight: .semibold)
         
         calendarView.appearance.titleDefaultColor = .white
@@ -43,6 +45,10 @@ class CalendarViewController: UIViewController {
         
         calendarView.appearance.subtitleDefaultColor = .lightGray
         calendarView.appearance.subtitleSelectionColor = .darkGray
+        
+        calendarView.appearance.todayColor = .systemYellow
+        
+        calendarView.appearance.headerMinimumDissolvedAlpha = 0.0
         
         // locale
         calendarView.locale = Locale(identifier: "ko_KR")
@@ -71,10 +77,15 @@ class CalendarViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        updateToday()
         loadDreamsOfCurrentMonth()
         if let selectedDate = selectedDate {
             displayDreams(of: selectedDate)
         }
+    }
+    
+    private func updateToday() {
+        calendarView.today = Date.now
     }
     
     private func displayDreams(of date: Date) {
@@ -146,7 +157,7 @@ extension CalendarViewController: FSCalendarDelegate {
         loadDreamsOfCurrentMonth()
         calendar.reloadData()
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
+        debouncer.debounce { [weak self] in
             guard let calendar = self?.calendarView else { return }
             
             calendar.select(calendar.currentPage) // 이번 달 1일로 선택

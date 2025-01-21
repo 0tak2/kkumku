@@ -30,6 +30,7 @@ class EditViewController: UIViewController {
         }
         
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = .primary
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(onTappedSave))
         navigationItem.rightBarButtonItem?.tintColor = .gray
         

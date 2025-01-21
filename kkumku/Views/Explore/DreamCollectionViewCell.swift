@@ -13,12 +13,13 @@ class DreamCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dreamDateLabel: UILabel!
     @IBOutlet weak var dreamContentLabel: UILabel!
     @IBOutlet weak var tagStackView: UIStackView!
+    @IBOutlet weak var seperatorView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        wrapperView.backgroundColor = .systemGray6
-        wrapperView.layer.cornerRadius = 25
         initTagStackView()
+        
+        seperatorView.backgroundColor = .darkGray
     }
     
     override func prepareForReuse() {
