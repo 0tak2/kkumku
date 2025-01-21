@@ -90,7 +90,7 @@
                                                             <rect key="frame" x="0.0" y="299" width="393" height="1"/>
                                                             <color key="backgroundColor" name="secondaryColor"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="i6T-K9-hmH"/>
+                                                                <constraint firstAttribute="height" constant="0.5" id="i6T-K9-hmH"/>
                                                                 <constraint firstAttribute="height" constant="1" id="iI7-nH-CMb"/>
                                                             </constraints>
                                                         </view>

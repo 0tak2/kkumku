@@ -257,10 +257,10 @@
                                                             </subviews>
                                                         </stackView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="my6-Cy-4LA">
-                                                            <rect key="frame" x="0.0" y="299" width="393" height="1"/>
+                                                            <rect key="frame" x="0.0" y="299.66666666666669" width="393" height="0.33333333333331439"/>
                                                             <color key="backgroundColor" name="secondaryColor"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="1" id="Cv2-nY-Pqf"/>
+                                                                <constraint firstAttribute="height" constant="0.5" id="Cv2-nY-Pqf"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
