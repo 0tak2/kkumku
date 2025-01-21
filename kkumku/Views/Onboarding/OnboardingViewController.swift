@@ -31,7 +31,10 @@ class OnboardingViewController: UIViewController {
     
     private func nextButtonTapped() {
         guard pageIndex + 1 < data.count else {
-            Log.debug("Last Page...")
+            let onboardingSettingViewController = OnboardingSettingViewController()
+            onboardingSettingViewController.modalPresentationStyle = .fullScreen
+            onboardingSettingViewController.modalTransitionStyle = .flipHorizontal
+            present(onboardingSettingViewController, animated: true)
             return
         }
         

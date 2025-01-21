@@ -155,6 +155,8 @@ class SettingViewController: UIViewController {
         checkNotificationAndUpdateUI()
     }
     
+    // FIXME: 알림 등록 로직 중복 - OnboardingSettingViewController
+    
     private func checkNotificationAndUpdateUI() {
         if notificationEnabled {
             notification.getAllRequest { [weak self] requests in
@@ -189,7 +191,7 @@ class SettingViewController: UIViewController {
         Task {
             do {
                 notification.removeAll()
-                try await self.notification.registerDailyNotification(hour: hour, minute: minute, title: "이번 꿈은 어떠셨나요?", body: "좋은 꿈 꾸셨나요? 꿈을 꾸셨다면 지금, 기억날 떄 기록해주세요")
+                try await self.notification.registerDailyNotification(hour: hour, minute: minute, title: "안녕히 주무셨나요?", body: "이번 꿈에 대해 기록해주세요")
                 Log.info("알림을 잘 등록했습니다. hour \(hour) minute \(minute)")
                 return true
             } catch let error as NSError {
