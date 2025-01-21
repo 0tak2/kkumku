@@ -91,12 +91,14 @@ enum UserDefaultsItem {
     case wakingTime
     case bedTime
     case notificationEnabled
+    case onboardingCompleted
     
     func getKey() -> String {
         switch self {
         case .wakingTime: "wakingTime"
         case .bedTime: "bedTime"
         case .notificationEnabled: "notificationEnabled"
+        case .onboardingCompleted: "onboardingCompleted"
         }
     }
 }
