@@ -32,6 +32,10 @@ class DetailDreamViewController: UIViewController {
         loadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
     func loadData() {
         guard let dream = dream else {
             fatalError("dream을 지정해야 합니다.")
