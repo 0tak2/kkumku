@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -85,9 +86,20 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2U-eu-BQX">
+                                                            <rect key="frame" x="0.0" y="299" width="393" height="1"/>
+                                                            <color key="backgroundColor" name="secondaryColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="i6T-K9-hmH"/>
+                                                                <constraint firstAttribute="height" constant="1" id="iI7-nH-CMb"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="t2U-eu-BQX" secondAttribute="bottom" id="2ES-9w-gnk"/>
+                                                        <constraint firstAttribute="trailing" secondItem="t2U-eu-BQX" secondAttribute="trailing" id="2dh-5c-cYQ"/>
+                                                        <constraint firstItem="t2U-eu-BQX" firstAttribute="leading" secondItem="TVX-2b-f4Q" secondAttribute="leading" id="AyO-Ev-rWG"/>
                                                         <constraint firstAttribute="trailing" secondItem="GYd-W8-c8x" secondAttribute="trailing" constant="8" id="Ryu-SR-47e"/>
                                                         <constraint firstAttribute="trailing" secondItem="jQr-rT-PDV" secondAttribute="trailing" constant="8" id="Uo9-yE-fdy"/>
                                                         <constraint firstAttribute="bottom" secondItem="grG-fW-Xvb" secondAttribute="bottom" constant="12" id="XVZ-xh-KND"/>
@@ -112,6 +124,7 @@
                                             <outlet property="dreamClassEmoji" destination="2hL-bL-MNv" id="yVi-7p-wLx"/>
                                             <outlet property="dreamContentLabel" destination="jQr-rT-PDV" id="yFm-1e-5zw"/>
                                             <outlet property="dreamDateLabel" destination="GYd-W8-c8x" id="fSr-XB-R8H"/>
+                                            <outlet property="seperatorView" destination="t2U-eu-BQX" id="LGy-FP-7J9"/>
                                             <outlet property="tagStackView" destination="grG-fW-Xvb" id="lEu-Y2-eLp"/>
                                             <outlet property="wrapperView" destination="TVX-2b-f4Q" id="LsH-JW-II3"/>
                                         </connections>
@@ -138,6 +151,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="secondaryColor">
+            <color red="0.80784313725490198" green="0.87058823529411766" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
