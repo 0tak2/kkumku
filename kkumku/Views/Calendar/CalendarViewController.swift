@@ -71,10 +71,15 @@ class CalendarViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        updateToday()
         loadDreamsOfCurrentMonth()
         if let selectedDate = selectedDate {
             displayDreams(of: selectedDate)
         }
+    }
+    
+    private func updateToday() {
+        calendarView.today = Date.now
     }
     
     private func displayDreams(of date: Date) {
