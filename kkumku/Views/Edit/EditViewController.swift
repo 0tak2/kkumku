@@ -40,19 +40,28 @@ class EditViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         tableView.dataSource = self
         tableView.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appBecameActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        recheckDates()
+    }
+    
+    @objc func viewTapped() {
+        view.endEditing(true)
+    }
+    
+    @objc private func appBecameActive() {
+        recheckDates()
+    }
+    
+    func recheckDates() {
         if isInsertingNewDream {
             workingDream.setStartDateWithSetting()
             workingDream.endAt = Date.now
             tableView.reloadData()
         }
-    }
-    
-    @objc func viewTapped() {
-        view.endEditing(true)
     }
 }

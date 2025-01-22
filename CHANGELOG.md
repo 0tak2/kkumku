@@ -12,6 +12,7 @@
 ### Changed
 
 - Bug: EditView DatePicker 로케일 (#51)
+- Bug: 앱이 백그라운드에서 포어그라운드로 전환되어도 EditView의 취침 시각, 기상 시각이 업데이트 되지 않음 (#52)
 
 ### Deprecated
 
