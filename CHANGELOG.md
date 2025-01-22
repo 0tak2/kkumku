@@ -11,6 +11,8 @@
 
 ### Changed
 
+- 타겟을 아이폰 전용으로 변경
+
 ### Deprecated
 
 ### Removed
