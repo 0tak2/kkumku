@@ -11,6 +11,8 @@
 
 ### Changed
 
+- Bug: EditView DatePicker 로케일 (#51)
+
 ### Deprecated
 
 ### Removed

@@ -16,6 +16,7 @@ class DateInputTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         datePicker.addTarget(self, action: #selector(didValueChanged(sender:)), for: .valueChanged)
+        datePicker.locale = Locale(identifier: "ko_KR")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
