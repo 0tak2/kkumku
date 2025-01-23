@@ -4,12 +4,9 @@
 
 꿈꾸는 꿈꾸는 일기장
 
-<table>
-  <tr>
-    <td><img height="640" src="./docs/demo1.png"></td>
-    <td><img height="640" src="./docs/demo2.png"></td>
-  </tr>
-</table>
+<a href="https://apps.apple.com/app/id6740838433">
+  <img src="./docs/download-on-appstore.svg" >
+</a>
 
 ## 정책
 
