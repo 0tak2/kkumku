@@ -223,11 +223,11 @@
 				};
 			};
 			buildConfigurationList = 3D2079882D18DC5C00E3DD04 /* Build configuration list for PBXProject "kkumku" */;
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ko,
 			);
 			mainGroup = 3D2079842D18DC5C00E3DD04;
 			minimizedProjectReferenceProxies = 1;
@@ -322,6 +322,7 @@
 				DEVELOPMENT_TEAM = XS9UN8F2AX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = kkumku/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "꿈꾸";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -356,6 +357,7 @@
 				DEVELOPMENT_TEAM = XS9UN8F2AX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = kkumku/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "꿈꾸";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -384,6 +386,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -447,6 +450,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
