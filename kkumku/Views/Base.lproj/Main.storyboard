@@ -87,6 +87,9 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="하이" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Iol-B6-txk">
                                                     <rect key="frame" x="20" y="11" width="313" height="218"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="480" id="xdC-Ou-E91"/>
+                                                    </constraints>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

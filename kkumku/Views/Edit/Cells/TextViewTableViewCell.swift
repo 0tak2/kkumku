@@ -18,6 +18,7 @@ class TextViewTableViewCell: UITableViewCell {
         super.awakeFromNib()
         textView.delegate = self
         textView.backgroundColor = .systemGray6
+        textView.isScrollEnabled = false
         textView.font = UIFont.systemFont(ofSize: 18, weight: .bold)
     }
 
