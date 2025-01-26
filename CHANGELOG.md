@@ -11,10 +11,6 @@
 
 ### Changed
 
-- 타겟을 아이폰 전용으로 변경
-- 프로젝트 기본 언어를 한국어로 고정
-- 꿈 추가/수정 뷰에서 꿈 본문 입력 영역이 자동으로 커지도록 개선
-
 ### Deprecated
 
 ### Removed
@@ -22,6 +18,14 @@
 ### Fixed
 
 ### Security
+
+## [0.0.3] - 2025-01-26
+
+### Changed
+
+- 타겟을 아이폰 전용으로 변경
+- 프로젝트 기본 언어를 한국어로 고정
+- 꿈 추가/수정 뷰에서 꿈 본문 입력 영역이 자동으로 커지도록 개선
 
 ## [0.0.2] - 2025-01-22
 
@@ -57,6 +61,7 @@
 - Fix: 새 꿈 추가 시, 캘린더 뷰에 반영 안됨 (#40)
 - Fix: 특정 태그를 사용한 꿈이 모두 삭제되어도 태그가 남아있는 문제 (#45)
 
-[unreleased]: https://github.com/0tak2/kkumku/compare/v0.0.2...HEAD
+[unreleased]: https://github.com/0tak2/kkumku/compare/v0.0.3...HEAD
+[0.0.3]: https://github.com/0tak2/kkumku/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/0tak2/kkumku/compare/v0.0.1-revised...v0.0.2
 [0.0.1]: https://github.com/0tak2/kkumku/releases/tag/v0.0.1-revised
