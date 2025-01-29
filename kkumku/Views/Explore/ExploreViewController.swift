@@ -14,7 +14,7 @@ class ExploreViewController: UIViewController {
     var sortButtonCellRegistration: UICollectionView.CellRegistration<SortButtonCollectionViewCell, Item>!
     var infoLabelCellRegistration: UICollectionView.CellRegistration<UICollectionViewListCell, Item>!
     
-    let dreamRepository = DreamRepository.shared
+    var dreamRepository: DreamRepositoryProtocol!
     
     var isAscending = false
     var numberOfItems = 5
@@ -49,13 +49,13 @@ class ExploreViewController: UIViewController {
     }
     
     @objc func searchButtonTapped() {
-        let storyboard = UIStoryboard(name: "SearchDreamView", bundle: nil)
+        let storyboard = DIContainerProvider.getStoryboardWithContainer(name: "SearchDreamView", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "SearchDreamViewController")
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func presentDetailView(for dream: Dream, animated: Bool) {
-        let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
+        let storyboard = DIContainerProvider.getStoryboardWithContainer(name: "DetailDreamView", bundle: nil)
         guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
                 as? DetailDreamViewController else { return }
         detailViewController.dream = dream

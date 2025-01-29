@@ -18,7 +18,7 @@ class EditViewController: UIViewController {
             navigationItem.rightBarButtonItem?.tintColor = isEditStarted ? nil : .gray
         }
     }
-    let dreamRepository = DreamRepository.shared
+    var dreamRepository: DreamRepositoryProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()

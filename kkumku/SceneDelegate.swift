@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import Swinject
+import SwinjectStoryboard
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -20,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.overrideUserInterfaceStyle = .dark
         
         if UserSettings.shared.bool(.onboardingCompleted) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let storyboard = DIContainerProvider.getStoryboardWithContainer(name: "Main", bundle: nil)
             window?.rootViewController = storyboard.instantiateInitialViewController()
         } else {
             window?.rootViewController = OnboardingViewController()

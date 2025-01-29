@@ -15,7 +15,7 @@ class SearchDreamViewController: UIViewController {
     var tagCellRegistration: UICollectionView.CellRegistration<UICollectionViewListCell, Item>!
     var currentSections: [Section]?
     
-    let dreamRepository: DreamRepository = DreamRepository.shared
+    var dreamRepository: DreamRepositoryProtocol!
     
     var loadedDreams: [Dream] = []
     var loadedTags: [String] = []

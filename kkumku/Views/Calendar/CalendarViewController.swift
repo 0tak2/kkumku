@@ -16,7 +16,7 @@ class CalendarViewController: UIViewController {
     var dreamCellRegistraion: UICollectionView.CellRegistration<CalendarDreamCollectionViewCell, Item>!
     var labelCellRegistraion: UICollectionView.CellRegistration<UICollectionViewListCell, Item>!
     
-    let dreamRepository: DreamRepository = DreamRepository.shared
+    var dreamRepository: DreamRepositoryProtocol!
     var dreamsForDay: [Date: [Dream]] = [:]
     var selectedDate: Date?
     
