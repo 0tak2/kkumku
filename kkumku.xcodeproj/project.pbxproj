@@ -10,6 +10,7 @@
 		3D2827B92D1BC13B009A851B /* DreamAndTagEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2827B32D1BC13B009A851B /* DreamAndTagEntity+CoreDataClass.swift */; };
 		3D2827BA2D1BC13B009A851B /* DreamTagEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2827B72D1BC13B009A851B /* DreamTagEntity+CoreDataClass.swift */; };
 		3D2827BD2D1BC13B009A851B /* DreamEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2827B52D1BC13B009A851B /* DreamEntity+CoreDataClass.swift */; };
+		3D87D4F82D47A04D009DC778 /* SwinjectStoryboard in Frameworks */ = {isa = PBXBuildFile; productRef = 3D87D4F72D47A04D009DC778 /* SwinjectStoryboard */; };
 		3D87F73E2D2CCB4F00BCE483 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3D87F73D2D2CCB4F00BCE483 /* FSCalendar */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D87D4F82D47A04D009DC778 /* SwinjectStoryboard in Frameworks */,
 				3D87F73E2D2CCB4F00BCE483 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +150,7 @@
 			name = kkumku;
 			packageProductDependencies = (
 				3D87F73D2D2CCB4F00BCE483 /* FSCalendar */,
+				3D87D4F72D47A04D009DC778 /* SwinjectStoryboard */,
 			);
 			productName = kkumku;
 			productReference = 3D20798D2D18DC5C00E3DD04 /* kkumku.app */;
@@ -233,6 +236,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				3D87F73B2D2CC97300BCE483 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				3D87D4F62D47A04D009DC778 /* XCRemoteSwiftPackageReference "SwinjectStoryboard" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3D20798E2D18DC5C00E3DD04 /* Products */;
@@ -616,6 +620,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3D87D4F62D47A04D009DC778 /* XCRemoteSwiftPackageReference "SwinjectStoryboard" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/SwinjectStoryboard.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
 		3D87F73B2D2CC97300BCE483 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
@@ -627,6 +639,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3D87D4F72D47A04D009DC778 /* SwinjectStoryboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D87D4F62D47A04D009DC778 /* XCRemoteSwiftPackageReference "SwinjectStoryboard" */;
+			productName = SwinjectStoryboard;
+		};
 		3D87F73D2D2CCB4F00BCE483 /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3D87F73B2D2CC97300BCE483 /* XCRemoteSwiftPackageReference "FSCalendar" */;
