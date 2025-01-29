@@ -7,12 +7,10 @@
 
 import CoreData
 
-final class CoreDataStack {
-    static let shared = CoreDataStack()
+final class CoreDataStack: CoreDataProvider {
+    private let containerName: String = "kkumku"
     
-    private var containerName: String = "kkumku"
-    
-    lazy var persistentContainer: NSPersistentContainer = {
+    private(set) lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: containerName)
         
         container.loadPersistentStores { storeDescription, error in
@@ -24,7 +22,7 @@ final class CoreDataStack {
         return container
     }()
     
-    private init() {
+    init() {
         Log.info("CoreDataStack 초기화", for: .system)
     }
 }
