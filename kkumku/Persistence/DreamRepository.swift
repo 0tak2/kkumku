@@ -7,10 +7,13 @@
 
 import CoreData
 
-final class DreamRepository {
-    static let shared = DreamRepository()
+final class DreamRepository: DreamRepositoryProtocol {
+    private let coreData: CoreDataProvider
     
-    let coreData: CoreDataStack
+    init(coreData: CoreDataProvider) {
+        self.coreData = coreData
+        Log.info("DreamRepository 초기화", for: .system)
+    }
     
     func withContext<T>(_ task: (_ context: NSManagedObjectContext) throws -> T,
                      onFailure: ((_ context: NSManagedObjectContext, _ error: Error) -> Void)? = nil ) -> T? {
@@ -159,8 +162,15 @@ final class DreamRepository {
     /**
      꿈 엔티티를 모두 조회한다.
      numberOfItems를 음수로 지정하면 모든 데이터를 읽어온다.
+    
+     - 호출 예시 (기상 시각을 기준으로 내립차순 정렬하여 10건 씩 끊었을 때 1페이지 조회)
+     
+     `let data = dreamRepository.fetchAll(sortBy: \DreamEntity.endAt, ascending: false, numberOfItems: 10, page: 1)`
+     
+     
+     - 주의: 페이지 수는 0이 야니라 1부터 시작
      */
-    func fetchAll(sortBy: AnyKeyPath = \DreamEntity.endAt, ascending: Bool = false, numberOfItems: Int = 10, page: Int = 1) -> [Dream] {
+    func fetchAll(sortBy: AnyKeyPath, ascending: Bool, numberOfItems: Int, page: Int) -> [Dream] {
         let result = withContext { context -> [Dream] in
             let fetchRequest = DreamEntity.fetchRequest()
             
@@ -321,17 +331,8 @@ final class DreamRepository {
         return result ?? []
     }
     
-    private init(coreData: CoreDataStack) {
-        self.coreData = coreData
-        Log.info("DreamRepository 초기화", for: .system)
-    }
-    
-    private convenience init() {
-        self.init(coreData: CoreDataStack.shared)
-    }
-    
     // FIXME: need to optimize
-    func deleteNoReferencedTag(context: NSManagedObjectContext) throws {
+    private func deleteNoReferencedTag(context: NSManagedObjectContext) throws {
         // MARK: inspect invalid connections
         let connectionEntityFetchRequest = DreamAndTagEntity.fetchRequest()
         connectionEntityFetchRequest.predicate = NSCompoundPredicate(type: .or, subpredicates: [

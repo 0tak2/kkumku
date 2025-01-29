@@ -185,7 +185,7 @@ extension SearchDreamViewController: UICollectionViewDelegate {
         }
         
         if section == .searchResults {
-            let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
+            let storyboard = DIContainerProvider.getStoryboardWithContainer(name: "DetailDreamView", bundle: nil)
             guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
                     as? DetailDreamViewController else { return }
             detailViewController.dream = loadedDreams[indexPath.item]

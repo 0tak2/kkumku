@@ -18,7 +18,7 @@ class DetailDreamViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     
     var dream: Dream!
-    let dreamRepository = DreamRepository.shared
+    var dreamRepository: DreamRepositoryProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +82,7 @@ class DetailDreamViewController: UIViewController {
 
 extension DetailDreamViewController {
     @objc func editButtonTapped() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = DIContainerProvider.getStoryboardWithContainer(name: "Main", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "EditViewController") as? EditViewController else {
             return
         }

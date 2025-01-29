@@ -109,7 +109,7 @@ extension CalendarViewController: UICollectionViewDelegate {
             return
         }
         
-        let storyboard = UIStoryboard(name: "DetailDreamView", bundle: nil)
+        let storyboard = DIContainerProvider.getStoryboardWithContainer(name: "DetailDreamView", bundle: nil)
         guard let detailViewController = storyboard.instantiateViewController(identifier: "DetailDreamViewController")
                 as? DetailDreamViewController else { return }
         detailViewController.dream = currentDreams[indexPath.item]

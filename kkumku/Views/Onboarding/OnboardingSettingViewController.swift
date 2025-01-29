@@ -63,7 +63,7 @@ class OnboardingSettingViewController: UIViewController {
         saveUserSettings()
         
         // MARK: Go to Main Storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = DIContainerProvider.getStoryboardWithContainer(name: "Main", bundle: nil)
 
         guard let mainViewController = storyboard.instantiateInitialViewController() else {
             fatalError("Main.storyboard의 초기 ViewController를 찾을 수 없습니다.")

@@ -17,7 +17,7 @@ class SettingViewController: UIViewController {
     let settings = UserSettings.shared
     
     // MARK: - Data
-    let dreamRepository = DreamRepository.shared
+    var dreamRepository: DreamRepositoryProtocol!
     
     // MARK: - Notification
     let notification = NotificationSupport.shared
@@ -209,7 +209,7 @@ class SettingViewController: UIViewController {
     private func dumpToJson() {
         Log.info("Started to backup dreams in JSON")
         
-        let data = dreamRepository.fetchAll(numberOfItems: -1)
+        let data = dreamRepository.fetchAll(sortBy: \DreamEntity.endAt, ascending: false, numberOfItems: -1, page: 1)
         let encodableEntities = data.map { DreamEncodable(from: $0) }
         
         do {
