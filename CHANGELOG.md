@@ -9,6 +9,8 @@
 
 ### Added
 
+- EditView에서 키보드에 따라 bottom constraint 조정
+
 ### Changed
 
 ### Deprecated
