@@ -9,8 +9,6 @@
 
 ### Added
 
-- EditView에서 키보드에 따라 bottom constraint 조정
-
 ### Changed
 
 ### Deprecated
@@ -20,6 +18,12 @@
 ### Fixed
 
 ### Security
+
+## [0.0.4] - 2025-02-24
+
+### Added
+
+- EditView에서 키보드에 따라 bottom constraint 조정
 
 ## [0.0.3] - 2025-01-26
 
@@ -63,7 +67,8 @@
 - Fix: 새 꿈 추가 시, 캘린더 뷰에 반영 안됨 (#40)
 - Fix: 특정 태그를 사용한 꿈이 모두 삭제되어도 태그가 남아있는 문제 (#45)
 
-[unreleased]: https://github.com/0tak2/kkumku/compare/v0.0.3...HEAD
+[unreleased]: https://github.com/0tak2/kkumku/compare/v0.0.4...HEAD
+[0.0.4]: https://github.com/0tak2/kkumku/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/0tak2/kkumku/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/0tak2/kkumku/compare/v0.0.1-revised...v0.0.2
 [0.0.1]: https://github.com/0tak2/kkumku/releases/tag/v0.0.1-revised
