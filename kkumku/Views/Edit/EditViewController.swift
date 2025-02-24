@@ -9,6 +9,7 @@ import UIKit
 
 class EditViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     
     var isInsertingNewDream = true
     var workingDream = Dream(startAt: Date.now, endAt: Date.now, memo: "", dreamClass: .auspicious, isLucid: false)
@@ -43,6 +44,8 @@ class EditViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         
         NotificationCenter.default.addObserver(self, selector: #selector(appBecameActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willKeyboardShow(_:)), name: UIView.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willKeyboardHide(_:)), name: UIView.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,5 +67,22 @@ class EditViewController: UIViewController {
             workingDream.endAt = Date.now
             tableView.reloadData()
         }
+    }
+    
+    @objc private func willKeyboardShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight: CGFloat = keyboardFrame.cgRectValue.height - view.safeAreaInsets.bottom
+            adjustBottomConstraint(with: keyboardHeight)
+            Log.debug("EditViewController willKeyboardShow - keyboardHeight=\(keyboardHeight)")
+        }
+    }
+    
+    @objc private func willKeyboardHide(_ notification: Notification) {
+        adjustBottomConstraint(with: 0)
+        Log.debug("EditViewController willKeyboardHide")
+    }
+    
+    private func adjustBottomConstraint(with constant: CGFloat) {
+        tableViewBottomConstraint.constant = constant
     }
 }
